@@ -1,0 +1,70 @@
+
+==
+https://en.wikipedia.org/w/api.php?
+action=query&
+prop=revisions&
+rvprop=content&
+format=jsonfm&
+pageids=21211 ==
+
+{
+    "batchcomplete": "",
+    "query": {
+        "pages": {
+            "21211": {
+                "pageid": 21211,
+                "ns": 0,
+                "title": "National Football League",
+                "revisions": [
+                    {
+                        "contentformat": "text/x-wiki",
+                        "contentmodel": "wikitext",
+                        "*": "{{Redirect|NFL|other leagues of the same name|National Football League (disambiguation)|other uses|NFL (disambiguation)}}\n{{pp-move-indef}}\n{{pp-semi-indef}}\n{{Use mdy dates|date=April 2017}}\n{{Infobox sports league\n| title = National Football League\n| Formerly = American Professional Football Conference (1920)<br />American Professional Football Association (1920\u20131921)\n| current_season = 2017 NFL season\n| logo = National Football League logo.svg\n| pixels = 150\n| sport = American football\n| founded = {{start date and age|1920|8|20}}<ref>{{cite web|title=2015 Official NFL Record and Fact Book |url=http://www.nfl.com/static/content/public/photo/2015/07/21/0ap3000000502939.pdf#page=357|publisher=National Football League|date=July 21, 2015|accessdate=October 25, 2015|
+
+													quote=An organizational meeting, at which the Akron Pros, Canton Bulldogs, Cleveland Indians, and Dayton Triangles were represented, was held at the Jordan and Hupmobile auto showroom in Canton... "
+												}]
+											}
+									}
+						}
+}
+
+
+{
+	"batchcomplete": "",
+	"query": {
+		"pages": {
+			"21211": {
+				"pageid": 21211,
+				"ns": 0,
+				"title": "National Football League",
+				"revisions": [{
+					"contentformat": "text/x-wiki",
+					"contentmodel": "wikitext",
+					"*":
+							"{{Redirect|NFL|other leagues of the same name|National Football League (disambiguation)|other uses|NFL (disambiguation)}}\n{{pp-move-indef}}\n{{pp-semi-indef}}\n{{Use mdy dates|date=April 2017}}\n{{Infobox sports league\n| title = National Football League\n| Formerly = American Professional Football Conference (1920)<br />American Professional Football Association (1920\u20131921)\n| current_season = 2017 NFL season\n| logo = National Football League logo.svg\n| pixels = 150\n| sport = American football\n| founded = {{start date and age|1920|8|20}}<ref>{{cite web|title=2015 Official NFL Record and Fact Book |url=http://www.nfl.com/static/content/public/photo/2015/07/21/0ap3000000502939.pdf#page=357|publisher=National Football League|date=July 21, 2015|accessdate=October 25, 2015|
+
+								quote=An organizational meeting, at which the Akron Pros, Canton Bulldogs, Cleveland Indians, and Dayton Triangles were represented, was held at the Jordan and Hupmobile auto showroom in Canton, Ohio, August 20."
+						}]
+			}
+		}
+	}
+}
+
+{
+	"batchcomplete": "",
+	"query": {
+		"pages": {
+			"1527849": {
+				"pageid": 1527849,
+				"ns": 0,
+				"title": "NFL on CBS",
+				"revisions": [{
+					"contentformat": "text/x-wiki",
+					"contentmodel": "wikitext",
+					"*":
+							"{{Use mdy dates|date=September 2013}}\n{{Infobox television\n| show_name = The NFL on CBS\n| image = NFLonCBSLogo2016.png\n| image_size = 200px\n| caption = ''NFL on CBS'' logo used beginning with the network's broadcast of [[Super Bowl 50]] on February 7, 2016.\n| show_name_2 = \n| genre = [[American football|Football telecasts]]\n| creator = \n| director = \n| presenter = [[List of NFL Today personalities|''The NFL Today'' crew]]<br>[[List of NFL on CBS announcers|''NFL on CBS'' game commentators]]\n| theme_music_composer = \n| opentheme = See [[NFL on CBS music]]\n| endtheme = \n| composer = \n| country = United States\n| language = English\n| num_seasons = 54\n| num_episodes = 5,000+<ref>{{cite news|title=NFL on CBS gears up for Game Number 5,000|url=http://www.mediabistro.com/sportsnewser/nfl-on-cbs-gears-up-for-game-number-5000_b3396/|work=Sportsnewser|date=November 22, 2010|accessdate=January 20, 2011}}</ref><!-- as of February 7, 2010-->\n| list_episodes = \n| executive_producer = \n| producer = \n| location = [[National Football League stadiums|Various NFL stadiums]] {{small|(game telecasts and playoff pregame/postgame shows)}}<br>[[CBS Broadcast Center]], New York City {{small|(studio segments, pregame and postgame shows)}}\n| camera = [[Multi-camera setup|Multi-camera]]\n| runtime = 210 minutes or until game ends\n| company = [[National Football League]]<br>[[CBS Sports]]\n| distributor = \n| network = [[CBS]]<br>[[NFL Sunday Ticket]]\n| picture_format = [[480i]] ([[4:3]] [[Standard-definition television|SDTV]])<br>{{small|(1956\u20131994 and 1998\u20132013)}},<br>[[480i]] ([[16:9]] SDTV)<br>{{small|(2013\u2013present)}},<br>[[1080i]] ([[high-definition television|HDTV]])<br>{{small|(2004\u2013present)}}\n| first_aired = '''Original run:''' {{start date|1956|9|30}}\n| last_aired = {{Plainlist |\n* {{end date|1994|1|23}}\n* '''Current run:'''\n* {{start date|1998|9|6}} \u2013 {{End date|present}}\n}}\n| preceded_by = \n| followed_by = \n| related = ''[[The NFL Today]]''<br>''[[Thursday Night Football]]''<br>''NFL on Yahoo!''\n| website = http://www.cbssports.com/nfl/\n| production_website = \n}}\n\nThe '''''NFL on CBS''''' is the branding used for broadcasts of [[National Football League]] (NFL) games that are produced by [[CBS Sports]], the sports division of the [[CB ]] television network in the United States. The network has aired NFL game telecasts since [[1956 NFL season|1956]] (with exception of a break from [[1994 NFL season|1994]] to [[1997 NFL season|1997]]). Since [[2014 NFL season|2014]], CBS has also broadcast ''[[Thursday Night Football]]'' games during the first half of the NFL season, through a production partnership with the [[NFL Network]].\n\n==History==\nCBS' coverage began on September 30, [[1956 NFL season|1956]] (the first regular season broadcast was a game between the visiting [[1956 Washington Redskins season|Washington Redskins]] against the [[1956 Pittsburgh Steelers season|Pittsburgh Steelers]]), before the 1970 AFL\u2013NFL merger. Prior to 1968, CBS had an assigned crew for each NFL team. As an result, CBS became the first network to broadcast some NFL regular season games to selected television markets across the country. From 1970 until the end of the 1993 season, when [[Fox Broadcasting Company|Fox]] won the broadcast television contract to that particular conference, CBS aired NFL games from the [[National Football Conference]]. Since 1975, game coverage has been preceded by [[pre-game show]] ''[[The NFL Today]]'', which features game previews, extensive analysis and interviews.\n\n===1950s===\nCBS's first attempts to broadcast the [[NFL on television]] were notable for there being no broadcasting contract with the league as a whole. Instead, CBS had to strike deals with individual teams to broadcast games into the teams' own markets, many of which were inherited from the defunct [[NFL on DuMont|DuMont Television Network]]. Often the games would be broadcast with \"split audio\" \u2013 that is, a game between two franchises would have the same picture in both teams' \"networks\" (the visiting team's home city and [[network affiliate|affiliates]] of the home team's \"network\" beyond a 75-mile radius of the home team's television market). Each team's \"network\" had different announcers (usually those working in their home markets).\n\nThe [[New York Giants]] in particular were carried on the [[DuMont Television Network|DuMont]] network, then CBS (airing locally on [[WCBS-TV]], channel 2) in the early days of the NFL of the league's television broadcasts, when home games were [[Blackout (broadcasting)|blacked out]] within a 75-mile radius of New York City. [[Chris Schenkel]] was their [[play-by-play|play-by-play announcer]] in that early era when each team was assigned its own network voice on its regional telecasts. At the time, there were few if any true national telecasts until the NFL championship game, which was carried by [[NFL on NBC|NBC]]. Schenkel was joined by [[Jim McKay]], later [[Johnny Lujack]] through the 1950s and the early 1960s. As Giants players retired to the broadcast booth in the early and 1960s, first [[Pat Summerall]], then [[Frank Gifford]] took the color analyst slot next to Schenkel. As the 1970 merger of the NFL and AFL approached, CBS moved to a more generic announcer approach while Schenkel left to join [[ESPN on ABC|ABC Sports]].\n\nFrom 1956 to [[1959 NFL season|1959]], the [[Baltimore Colts]], [[Pittsburgh Steelers]] and [[Philadelphia Eagles]] only had their away games telecast on CBS. When these three played at home, there was no need for the usage of split audio. Instead, the away team's telecasts were produced in a simple singular audio-video feed. In 1959, [[1960 NFL season|1960]] and 1961, NBC had the rights to televise Colts and Steelers home games. While the game broadcasts were blacked out (as per NFL policy) in those cities, they were available to other NBC-affiliated stations.\n\nThe [[Chicago Bears]] and [[Chicago Cardinals (NFL, 1920\u201359)|Chicago Cardinals]] only produced home telecasts for their vast network. Because of this, if the Bears played the Colts in [[Baltimore]] or the Cardinals visited [[Forbes Field]] to play the Steelers during this period, it was likely that the games were not televised by CBS (although from 1959 to 1961, they might have been shown by NBC). Meanwhile, the [[Cleveland Browns]] had their own network, part of [[Sports Network Incorporated]] (SNI) and [[Carling Beer]].\n\n===1960s===\nIn [[1961 NFL season|1961]], then-CBS affiliate [[WISN-TV]] (channel 12, now an [[American Broadcasting Company|ABC]] affiliate) in [[Milwaukee]] opted not to carry that year's annual telecast of ''[[The Wizard of Oz (1939 film)|The Wizard of Oz]]'', running a [[1961 Green Bay Packers season|Green Bay Packers]] football game instead. In contrast to the infamous ''[[Heidi Game|Heidi]]'' telecast in [[1968 American Football League season|1968]], the popularity of ''The Wizard of Oz'' [[The Wizard of Oz on television|as an annual television event]] at that time was such that the station ran the movie locally at a later date. On September 17, 1961, [[CBS Sports]] broadcast the first remote 15-minute pre-game show, the first of its kind on network sports television; ''[[The NFL Today|Pro Football Kickoff]]'' originated from NFL stadiums around the country with a"
+				}]
+			}
+		}
+	}
+}

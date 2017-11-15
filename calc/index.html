@@ -1,0 +1,453 @@
+<!DOCTYPE html >
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Online Calculator</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<script src="https://use.fontawesome.com/cba1a2fa20.js"></script>
+
+	<script>
+
+	/*
+	1. add, subtract, multiply and divide two numbers.
+	2. clear the input field with a clear button.
+	3. keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.
+	 */
+
+	$(document).ready( function(){
+
+
+
+			var arrQ = [];
+			var currVal = "";
+			var currAction = "";
+			var lastCmd = "";
+
+			// Number Button ...................
+			// always adds a number to end of blank or existn string
+			$(".numBtn").click(function(){
+
+				if (lastCmd == "eq"){
+					currVal = $(this).text();
+				}else{
+					currVal += $(this).text();
+				}
+				if (lastCmd == "action"){
+					arrQ.push(currAction);
+					currAction = "";
+				}
+				lastCmd = "num";
+				results();
+				queue();
+
+			});
+
+			// Action Button ...................
+			// 1. After a num...
+			$(".actionBtn").click(function(){
+
+				if(currVal != ""){
+					currAction = $(this).text();
+					arrQ.push(currVal);
+					currVal = "";
+					lastCmd = "action";
+					queue();
+					$("#calcResults").effect( "bounce", {times:1}, 75);
+				}
+			});
+
+			// CE Button ...................
+			// erase either the currAction or last char of currVal
+			$("#cbtnCe").click(function(){
+
+				if(lastCmd == "num"){
+					if(currVal.length > 1){
+						currVal = currVal.substring(0,currVal.length-1);
+						queue();
+						results();
+					}else{
+						currVal = "";
+						queue();
+					}
+				}else if(lastCmd == "action"){
+					currAction = "";
+					queue();
+					}else {
+						reset();
+					}
+			});
+
+			// AC Button ...................
+			// erase all
+			$("#cbtnAc").click(function(){
+				reset();
+			});
+
+			// Percent Button ...................
+			$("#cbtnPc").click(function(){
+				currVal = (parseFloat(currVal)/100).toString();
+				queue();
+				results();
+			});
+
+			// Positive/Negative Button ...................
+			$("#cbtnPn").click(function(){
+				currVal = (0 - parseFloat(currVal)).toString();
+				queue();
+				results();
+			});
+
+
+			// Equal Button ...................
+			$("#cbtnEq").click(function(){
+
+				if(lastCmd == "num"){
+
+					arrQ.push(currVal);
+					console.log(arrQ.join(","));
+
+					// should always have a number followed by an action
+					var tot = parseFloat(arrQ[0]);
+					var curr = 0;
+					for(var i = 1; i < arrQ.length; i+=2){
+						curr = parseFloat(arrQ[i+1]);
+						//console.log("curr: "+ curr);
+
+						switch(arrQ[i]){
+							case "+":
+								tot = tot + curr;
+								break;
+							case "-":
+								tot = tot - curr;
+								break;
+							case "x":
+								tot = tot * curr;
+								break;
+							case "/":
+								tot = tot / curr;
+								break;
+							case "%":
+							case "X!":
+							default:
+						}
+					}
+					var dec =8;
+
+					tot = Number(Math.round(tot + 'e' + dec) + 'e-' + dec);
+
+					currVal = tot.toString();
+					arrQ = [];
+					currAction = "";
+					lastCmd = "eq";
+
+					results();
+					queue();
+					//$( "calcResults" ).hide( "drop", { direction: "right" }, "fast" );
+				}
+			});
+
+			function results(){
+				$("#calcResults").html(currVal);
+			}
+			function queue(){
+				if(arrQ.length>0){
+					$("#queue").html(arrQ.join(" ") + " " + currAction + " " + currVal);
+				}else{
+					$("#queue").html(currAction + " " + currVal);
+				}
+			}
+			function reset(){
+				arrQ = [];
+				currVal = "";
+				currAction = "";
+				results();
+				queue();
+			}
+
+
+	// move and show the calcBtns ......................
+	$(function () {
+		var numBtns = [];
+
+		$(".numBtn").each(function() {
+			numBtns.push(this)
+		});
+
+		// order by btn no.
+		numBtns.sort(function(a,b) {
+		  if (a.text < b.text) {
+		    return -1;
+		  }else{
+				return 1;
+			}
+		});
+		numBtns.push(numBtns.shift());  // move period and 0 to end
+		numBtns.push(numBtns.shift());
+
+		var i = 100; // timer control...
+		numBtns.forEach(function(n) {
+			var t = n
+			var intervalID = setTimeout(function(){
+				showRest(t, i);
+			}, i);
+			i+=160;
+		});
+
+		function showRest(t, i) 	{
+			$(t).css({border:"1px solid #ffffff"});
+			$(t).animate({height:"86px",width:"86px"}, i);
+
+			var intervalID = setTimeout(function(){
+				$(t).css("box-shadow", "8px 8px 16px rgb(5, 14, 15)");
+				$(t).css("color"," #ffffff");
+			}, i-100);
+		}
+
+	});
+
+
+
+	// change background image periodically ......................
+	$(function () {
+
+		var images = ["IMG-8095f.jpg", "IMG-0445f.jpg", "IMG-2843-01.jpg", "img-2921-s1.jpg", "img-6469f.jpg", "daytona-moon.jpg"];
+
+		var i = 0;
+		$(".zL2").css("background-image", "url(img/" + images[i] + ")");
+
+		var z1 = ".zL1";
+		var z2 =  ".zL2";
+		setInterval(function () {
+			i++;
+			if (i == images.length) {
+					i = 0;
+			}
+			if(i%2 !=0){
+				 z1 = ".zL1";
+				 z2 =  ".zL2";
+			}else{
+				z2 = ".zL1";
+				z1 =  ".zL2";
+			}
+			$(z2).fadeOut(2000, function () {});
+			$(z1).css("background-image", "url(img/" + images[i] + ")").fadeIn(2000);
+
+			}, 12000);
+		});
+
+	});
+
+	</script>
+
+
+	<style type="text/css">
+
+	body {
+			background-color: #000000;
+			font-family: 'menlo', 'sans-serif';
+		}
+		.calcResults {
+			text-align: right;
+			font-size: 110px;
+			font-weight: 100;
+			color: #b4fb06;
+			height:160px;
+			border: 1px solid #01614a;
+		}
+		.queue {
+			text-align: right;
+			font-size: 12px;
+			font-weight:100;
+			color: #ffffff;
+		}
+		.calcBtn {
+			text-align: center;
+			font-size: 50px;
+			border-radius: 50%;
+			vertical-align: middle;
+			margin-left:1px; margin-right:1px;
+			display: inline-block;
+			background-color: rgba(0, 12, 13, 0.5);
+			line-height: 82px;
+		}
+		.numBtn {
+			height: 0px; width: 0px;
+			margin-left:1px; margin-right:1px;
+		}
+		.actionBtn {
+			color: rgb(255, 255, 255);
+			border: 2px solid rgb(255, 255, 0);
+			margin-left:8px; margin-right:8px;
+			height: 86px; width: 86px;
+		}
+		.clearBtn {
+			color: rgb(255, 255, 255);
+			border: 2px solid rgb(252, 0, 0);
+			background-color: rgba(0, 12, 13, 0.5);
+			margin-left:8px; margin-right:8px;
+			height: 86px; width: 86px;
+		}
+		.funcBtn {
+			color: rgb(255, 255, 255);
+			border: 2px solid rgb(0, 150, 200);
+			background-color: rgba(0, 12, 13, 0.5);
+			height: 86px; width: 86px;
+			margin-left:8px; margin-right:8px;
+		}
+		.cbtnEq {
+			color: rgb(255, 255, 255);
+			border: 2px solid rgb(0, 255, 0);
+			background-color: rgba(0, 12, 13, 0.5);
+			margin-left:8px; margin-right:8px;
+			height: 86px; width: 86px;
+		}
+		#cbtnPrd {
+			margin-left:35px; margin-right:35px;
+		}
+		#cbtn2{
+			margin-bottom: 30px;
+		}
+		#cbtn7{
+			margin-top: 30px;
+		}
+		a{color: transparent;
+			text-decoration:  none;
+		}
+		a:hover{
+			color:rgb(0, 255, 0);
+			background-color: rgba(0, 12, 13, 0.8);
+			border: 2px solid rgb(255, 0, 252);
+			text-decoration:  none;
+		}
+		a:visited{
+			color: rgb(255, 255, 255);
+			text-decoration:  none;
+		}
+		.rs{
+			padding-top: 4px;
+		}
+		.rsT{
+			padding: 8px;
+		}
+		.vBot{
+			vertical-align:bottom;
+		}
+		.vTop{
+			vertical-align:top;
+		}
+		.zL{
+			position: fixed;
+			left: 0; top: 0;
+			height:100%; width:100%;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center top;
+			background-repeat: no-repeat;
+			background-size: cover;
+			margin: 0px;
+		}
+		.zL1{
+			z-index: 1;
+		}
+		.zL2{
+			z-index: 2;
+		}
+		.zL100{
+			position: fixed;
+			left: 0; top: 0;
+			height:100%; width:100%;
+			z-index: 100;
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+
+
+	<!-- //  backgrounds ............... -->
+	<div class="zL zL1"></div>
+	<div class="zL zL2"></div>
+
+
+
+	<!-- //  Calculator results display row ............... -->
+	<div class="container-fluid zL100" id="main" >
+
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div id="calcResults"  class="col-xs-8 calcResults"></div>
+			<div class="col-xs-2"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div id="queue"  class="col-xs-8 queue"></div>
+			<div class="col-xs-2"></div>
+		</div>
+
+
+		<!-- //  Calculator body rows ............... -->
+
+		<div class="row">
+			<div class="col-xs-12 text-center rsT">
+					<a id="cbtnAc" class="calcBtn clearBtn">AC</a>
+					<a id="cbtnCe" class="calcBtn clearBtn">CE</a>
+					<a id="cbtnPn" class="calcBtn funcBtn">+-</a>
+					<a id="cbtnPc" class="calcBtn funcBtn">%</a>
+					<a id="cbtnEq" class="calcBtn cbtnEq">=</a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 text-center rs">
+				<a id="cbtn1" class="calcBtn numBtn vBot">1</a>
+				<a id="cbtn2" class="calcBtn numBtn vBot">2</a>
+				<a id="cbtn3" class="calcBtn numBtn vBot">3</a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 text-center rs">
+				<a id="cbtn0" class="calcBtn numBtn">0</a>
+				<a id="cbtn9" class="calcBtn numBtn">9</a>
+				<a id="cbtnPrd" class="calcBtn numBtn">.</a>
+				<a id="cbtn4" class="calcBtn numBtn">4</a>
+				<a id="cbtn5" class="calcBtn numBtn">5</a>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-xs-12 text-center rs" >
+				<a id="cbtn8" class="calcBtn numBtn vTop">8</a>
+				<a id="cbtn7" class="calcBtn numBtn vTop">7</a>
+				<a id="cbtn6" class="calcBtn numBtn vTop">6</a>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-xs-12 text-center rs">
+				<a class="calcBtn actionBtn">+</a>
+				<a class="calcBtn actionBtn">-</a>
+				<a class="calcBtn actionBtn">x</a>
+				<a class="calcBtn actionBtn">/</a>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- //  end main fluid ............... -->
+
+</body>
+
+</html>

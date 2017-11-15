@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../../bootstrap-337-dist/css/bootstrap.min.css" />
+	<script>
+
+
+
+	$("document").ready(function(){
+
+		var jsonURL2_allows = 'https://learnwebcode.github.io/json-example/animals-1.json';
+		var jsonURL3_allows = 'https://fcc-weather-api.glitch.me//api/current?lon=35&lat=35';
+		var jsonURL_doesntAllow = 'https://run.plnkr.co/plunks/v8xyYN64V4nqCshgjKms/data-1.json';
+
+		var getUrl = function(){
+        var radioValue = $("input[name='url']:checked").val();
+        if(radioValue){
+					switch(radioValue){
+						case '1':
+						return jsonURL2_allows;
+						break;
+						case '2':
+						return jsonURL3_allows;
+						break;
+						case '3':
+						return jsonURL_doesntAllow;
+						default:
+						alert("ERROR: Can't determine URL " + radioValue);
+						return false;
+					}
+				} else {
+            alert("ERROR: No URL value detected");
+        }
+		}
+
+		$("#btnJSON1").click(function(){
+
+			selectedURL = getUrl();
+
+			if(selectedURL){
+
+				$.getJSON(selectedURL, function(data){
+					//returns an array of objects
+					//JSON.parse runs in getJSON
+					console.log(data);
+					$("#divJSON1").html(JSON.stringify(data));
+					// $.each(data, function(index, field){    itterate the array of returned objects
+						// $("#divJSON1").append(field.name + " AA<br>");  });
+				});
+
+			};
+		});
+
+
+		$("#btnJSON2").click(function(){
+			selectedURL = getUrl();
+
+			if(selectedURL){
+
+				// Using Promises ------------------------- // ----------------
+				// Assign handlers immediately after making the request,
+				// and remember the jqxhr object for this request
+				// Can send OPTIONAL params is query string.
+				var jqxhr = $.getJSON( selectedURL, { tags: "mount rainier",tagmode: "any",format: "json"}, function() {
+					console.log( "success .added function() " );
+				})
+				.done(function(data) {
+					console.log( "second success .done() " + data );
+
+					//itterate the array of returned objects
+					//$.each(data, function(index, field){
+						$("#divJSON2").html(JSON.stringify(data));
+					//});
+
+				})
+				.fail(function() {
+					console.log( "error .fail() " ); // handle this
+					$("#divJSON2").append(" error .fail() ");
+				})
+				.always(function() {
+					console.log( "complete .always()" );
+					$("#divJSON2").append(" COMPLETE .always() ");
+				});
+
+				// Perform other work here ...
+
+				// Set another completion function for the request above
+				// jqXHR.done(), jqXHR.fail(), and jqXHR.always()
+				jqxhr.always(function() {
+					console.log( "second complete jqxhr.always() " );
+					$("#divJSON2").append(" SECOND COMPLETE jqxhr.always() ");
+				});
+
+			}
+		});
+
+
+		$("#btnJSONPAJAX").click(function(){
+			selectedURL = getUrl();
+
+			if(selectedURL){
+
+				function logResults(data){
+					console.log(data);
+				}
+
+				var jqxhr = $.ajax({
+					url: selectedURL,
+					dataType: "jsonp",
+					jsonpCallback: "logResults"
+				}).fail(function() {
+			    console.log( "error" );
+					$("#divJSONPAJAX").append(" error .fail() ");
+			  })
+			  .always(function() {
+			    console.log( "complete" );
+					$("#divJSONPAJAX").append(" COMPLETE .always() ");
+			  });
+
+			}
+		});
+
+
+		$("#btnAJAX").click(function(){
+
+			// Assign handlers immediately after making the request,
+			// and remember the jqXHR object for this request
+			// https://api.github.com/users/jeresig
+
+			var jqxhr = $.ajax(selectedURL)
+				.done(function(data) {
+					console.log( "success" );  // specify success here !!!
+					console.log( data);  // specify success here !!!
+					$("#divAJAX").html(JSON.stringify(data));
+				})
+			  .fail(function() {
+			    console.log( "error" );
+			  })
+			  .always(function() {
+			    console.log( "complete" );
+			  });
+
+			// Perform other work here ...
+			// Set another completion function for the request above
+			jqxhr.always(function() {
+			  alert( "second complete" );
+			});
+
+		});
+
+	});
+
+	</script>
+
+<style type="text/css">
+
+	body {
+		background-color: white;
+		font-family: arial;
+		font-size: 14px;
+		margin:20px;
+	}
+	code {
+		color:rgb(4, 49, 52)
+	}
+	.code1 {
+		padding:10px;
+		background-color:#eeeeee;
+		font-family:menlo;
+		font-size:13px;
+	}
+	.data1 {
+		margin: 6px;
+		padding:12px;
+		font-family:menlo;
+		font-size:14px;
+	}
+</style>
+
+
+</head>
+
+<body >
+
+	<div class="data1">
+		Bottom line:
+		<ul>
+			<li>API Access</li>
+			<li><a href="https://en.wikipedia.org/wiki/Same-origin_policy">Wikipedia: Same-origin Policy</a></li>
+			<li>You need to follow rules, noting Domain, Protocol, Port</li>
+			<li>Servers can be set up to "Allow Access" or Not. </li>
+			<li>Default is NOT.</li>
+			<li>Server can be set to Allow whomever...</li>
+			<li>Seems popular to Allow with a key.</li>
+			<li>Failed to load https://run.plnkr.co/plunks/v8xyYN64V4nqCshgjKms/data-1.json: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'https://s.codepen.io' is therefore not allowed access.</li>
+		</ul>
+
+		<ul>
+			<li>Various access techniques here. $.getJSON(), $.ajax(), $.getJSON()_JSONP()</li>
+		</ul>
+  </div>
+
+<br>
+<hr>
+<p>
+        <label><input type="radio" name="url" value="1" checked>jsonURL2, server won't return JSONP</label> <br>
+        <label><input type="radio" name="url" value="2">jsonURL3, server will return JSONP</label><br>
+				<label><input type="radio" name="url" value="3">jsonURL, server will return JSONP</label>
+
+    </p>
+
+		<hr>
+<!-- ................................ -->
+
+
+<h2 >Get JSON data 1</h2>
+<button id="btnJSON1" class="btn btn-success">Run</button>
+<div id="divJSON1" class="data1"> </div>
+
+<div class="code1">
+	 <code >
+		$.getJSON(selectedURL, function(data){<br>
+			//returns an array of objects<br>
+			//JSON.parse runs in getJSON<br>
+			console.log(data);<br>
+			$("#divJSONP2").html(JSON.stringify(data));<br>
+			// $.each(data, function(index, field){    itterate the array of returned objects<br>
+				// $("#divJSON1").append(field.name + " AA");  });<br>
+		});
+	</code>
+</div>
+<hr/>
+<!-- ................................ -->
+
+<h2 >Get JSON data 2</h2>
+<button id="btnJSON2" class="btn btn-success">Run</button>
+<div id="divJSON2" class="data1"> </div>
+
+<div class="code1">
+	 <code>
+		 // Using Promises ------------------------- // ----------------<br>
+ 		// Assign handlers immediately after making the request,<br>
+ 		// and remember the jqxhr object for this request<br>
+ 		// Can send OPTIONAL params is query string.<br>
+ 		var jqxhr = $.getJSON( selectedURL, { tags: "mount rainier",tagmode: "any",format: "json"}, function() {
+ 			console.log( "success .added function() " );<br>
+ 		})<br>
+ 		.done(function(data) {<br>
+ 			console.log( "second success .done() " + data );<br>
+<br>
+ 				$("#divJSON2").html(JSON.stringify(data));<br>
+ 		})<br>
+ 		.fail(function() {<br>
+ 			console.log( "error .fail() " ); // handle this<br>
+ 			$("#divJSON2").append(" error .fail() ");<br>
+ 		})<br>
+ 		.always(function() {<br>
+ 			console.log( "complete .always()" );<br>
+ 			$("#divJSON2").append(" COMPLETE .always() ");<br>
+ 		});<br>
+<br>
+ 		// Perform other work here ...<br>
+		<br>
+ 		jqxhr.always(function() {<br>
+ 			console.log( "second complete jqxhr.always() " );<br>
+ 			$("#divJSON2").append(" SECOND COMPLETE jqxhr.always() ");<br>
+ 		});<br>
+	</code>
+</div>
+<hr/>
+<!-- ................................ -->
+
+<h2 >Get JSONP-AJAX</h2>
+<button id="btnJSONPAJAX" class="btn btn-success">Run</button>
+<div id="divJSONPAJAX" class="data1"> </div>
+
+<div class="code1">
+	 <code>
+		 function logResults(json){<br>
+		 	console.log(json);<br>
+		 	$("#divJSONP-AJAX").html(JSON.stringify(json));<br>
+		 }<br>
+<br>
+		 $.ajax({<br>
+		 	url: selectedURL,<br>
+		 	dataType: "jsonp",<br>
+		 	jsonpCallback: "logResults" // specify success here !!!<br>
+		 	//async: false,<br>
+		 	//beforeSend: function (xhr) {<br>
+		 	///	if (xhr && xhr.overrideMimeType) {
+		 	//	xhr.overrideMimeType('application/json;charset=utf-8');<br>
+		 	//  }<br>
+		 	//}<br>
+		 })<br>
+		 .fail(function() {<br>
+		 	console.log( "error" );<br>
+		 	$("#divJSONP-AJAX").append(" error .fail() ");<br>
+		 })<br>
+		 .always(function() {<br>
+		 	console.log( "complete" );<br>
+		 	$("#divJSONP-AJAX").append(" COMPLETE .always() ");<br>
+		 });<br>
+	</code>
+</div>
+<hr/>
+
+
+
+
+
+
+</body>
+</html>

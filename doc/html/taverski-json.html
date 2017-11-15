@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+
+		//jsonlint.com
+
+		var person = {
+			name: "Brad",
+			age: 35,
+			address:{
+				street:"5 main st",
+				city: "Boston"
+			},
+			children: ["Brianna","Nicholas"]
+		}
+		//Accessing
+		console.log(person.address.street);
+		console.log(person.children[0]);
+
+		/*
+		make the Object person into the String person
+		person = JSON.stringify(person);
+
+		//make the String into an Object
+		person = JSON.parse(person);
+		*/
+
+		var people = [
+			{
+				name:"Brad",
+				age: 35
+			},
+			{
+				name: "John",
+				age: 40
+			},
+			{
+				name: "Sara",
+				age:25
+			}
+		];
+
+		console.log(people[2]);  // returns the Object Sara.
+		console.log(people[2].age);  // returns Number age.
+
+		var output="";
+
+		for(var i = 0; i < people.length; i++){
+			console.log(people[i]);  // returns the Object Sara.
+			output += '<li>' + people[i].name + '</li>';
+		}
+		document.getElementById('people').innerHTML = output;
+
+		</script>
+	</body>
+</html>

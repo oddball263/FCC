@@ -1,0 +1,88 @@
+//DArk sky.....
+json:{
+	"latitude":35.106173399999996,
+	"longitude":-80.9956649,
+	"timezone":"America/New_York",
+	"currently":{
+		"time":1508348596,
+		"summary":"Clear",
+		"icon":"clear-day",
+		"nearestStormDistance":134,
+		"nearestStormBearing":158,
+		"precipIntensity":0,
+		"precipProbability":0,
+		"temperature":65.48,
+		"apparentTemperature":65.48,
+		"dewPoint":40.07,
+		"humidity":0.39,
+		"pressure":1028.31,
+		"windSpeed":2.72,
+		"windGust":5.36,
+		"windBearing":64,
+		"cloudCover":0.01,
+		"uvIndex":5,
+		"visibility":9.9,
+		"ozone":300.94
+	},
+	"flags":{
+		"sources":[
+			"isd",
+			"nearest-precip",
+			"nwspa",
+			"cmc",
+			"gfs",
+			"hrrr",
+			"madis",
+			"nam",
+			"sref",
+			"darksky"
+		],
+		"isd-stations":[
+			"720277-63843","720599-99999","720607-99999","722128-53899","722132-63801","723055-63816","723117-53871","723117-99999","723140-13881","723147-53870","723147-99999","723156-63812","723194-53872","723194-99999","999999-13881","999999-93849"
+			],
+		"units":"us"
+	},
+	"offset":-4
+}
+coords: 35.106173399999996 : -80.9956649
+
+
+
+
+
+
+{
+	"coord":{"lon":35.11,"lat":-81},
+	"weather":[
+		{"id":802,
+			"main":"Clouds",
+			"description":"scattered clouds",
+			"icon":"https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F03d.png?1499366020890"
+		}],
+	"base":"stations",
+	"main":{
+		"temp":-34.86,
+		"pressure":653.78,
+		"humidity":33,
+		"temp_min":-34.86,
+		"temp_max":-34.86,
+		"sea_level":1053.22,
+		"grnd_level":653.78
+		},
+	"wind":{
+		"speed":5.56,
+		"deg":257.001
+		},
+	"clouds":{
+		"all":32
+		},
+	"dt":1508295949,
+	"sys":{
+		"message":0.0035,
+		"sunrise":0,
+		"sunset":0
+		},
+	"id":0,
+	"name":"",
+	"cod":200
+}

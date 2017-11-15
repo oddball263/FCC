@@ -1,0 +1,210 @@
+<!DOCTYPE html >
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Online Calculator</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<script src="https://use.fontawesome.com/cba1a2fa20.js"></script>
+
+	<script>
+
+		/*
+		1. add, subtract, multiply and divide two numbers.
+		2. clear the input field with a clear button.
+		3. keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.
+		 */
+
+		$(document).ready( function(){
+
+			var arrQueue = [];
+			var frstVal = "";
+			var secVal = "";
+			var action = "";
+			var actionWaiting = false;
+
+			// Number Button ...................
+			// always adds a number to end of blank or existn string
+			$(".numBtn").click(function(){
+
+				if(actionWaiting){
+					secVal += $(this).text();
+					write(secVal);
+				}else{
+					frstVal += $(this).text();
+					write(frstVal);
+				}
+
+			});
+
+			// Action Button ...................
+			$(".actionBtn").click(function(){
+
+				action = $(this).text();
+				actionWaiting = true;
+
+			});
+
+			// Equal Button ...................
+			$(".equalBtn").click(function(){
+
+				if(actionWaiting){
+						var f = parseFloat(frstVal);
+						var s = parseFloat(secVal);
+						var x = 0;
+
+					switch(action){
+						case "+":
+							x = f + s;
+							break;
+						case "-":
+							x = f - s;
+							break;
+						case "x":
+							x = f * s;
+							break;
+						case "/":
+							x = f / s;
+							break;
+						case "%":
+						case "X!":
+						default:
+					}
+					actionWaiting = false;
+					secVal = "";
+					write(x);
+					frstVal = x.toString();
+
+				}
+
+			});
+
+			function write(val){
+				$("#calcResults").html(val);
+			}
+
+		});
+
+	</script>
+
+
+	<style type="text/css">
+
+		body {
+			background-color: rgb(13, 57, 66);
+			font-family: 'menlo', 'sans-serif';
+		}
+
+		.calcResults {
+			text-align: right;
+			font-size: 99px;
+			font-weight: bold;
+			color: #b4fb06;
+		}
+
+		.calcBtn {
+			text-align: center;
+			font-size: 50px;
+			border-radius: 50%;
+			height:90px; vertical-align: middle;
+		}
+		.numBtn {
+			color: #ffffff;
+			border: 2px solid #ffffff;
+			background-color: rgba(0, 12, 13, 0.3);
+		}
+		.actionBtn {
+			color: rgb(252, 5, 94);
+			border: 2px solid rgb(252, 5, 94);
+			background-color: rgba(0, 12, 13, 0.5);
+		}
+		.equalBtn {
+			color: rgb(252, 5, 94);
+			border: 2px solid rgb(252, 5, 94);
+			background-color: rgba(0, 12, 13, 0.5);
+		}
+		a:hover{
+			color:rgb(16, 250, 4);
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<div class="container-fluid">
+
+
+		<!-- //  Calculator results display row ............... -->
+		<div class="row">
+			<div class="col-md-2"> </div>
+			<div id="calcResults"  class="col-md-8 calcResults"></div>
+			<div class="col-md-2"> </div>
+		</div>
+
+
+		<!-- //  Calculator body row ............... -->
+		<div id="cbR1" class="row">
+			<div  id="cbtn0" class="col-md-3">&nbsp;</div>
+
+			<div id="cbtnAc" class="col-md-1 calcBtn actionBtn ">AC</div>
+			<div id="cbtnCe" class="col-md-1 calcBtn actionBtn ">CE</div>
+			<div id="cbtnF" class="col-md-1 calcBtn actionBtn ">X!</div>
+			<div id="cbtn0" class="col-md-1 calcBtn"></div>
+			<div id="cbtn0" class="col-md-1 calcBtn"></div>
+			<div id="cbtn0" class="col-md-1 calcBtn equalBtn"> = </div>
+
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+
+		<div id="cbR1" class="row">
+			<div  id="cbtn0" class="col-md-3">&nbsp;</div>
+
+			<div id="cbtn1" class="col-md-1 calcBtn numBtn">1</div>
+			<div id="cbtn2" class="col-md-1 calcBtn numBtn">2</div>
+			<div id="cbtn3" class="col-md-1 calcBtn numBtn ">3</div>
+			<div id="cbtn4" class="col-md-1 calcBtn numBtn ">4</div>
+			<div id="cbtn5" class="col-md-1 calcBtn numBtn ">5</div>
+			<div id="cbtn6" class="col-md-1 calcBtn numBtn ">6</div>
+
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<div id="cbR1" class="row">
+			<div  id="cbtn0" class="col-md-3">&nbsp;</div>
+
+			<div id="cbtn7" class="col-md-1 calcBtn numBtn ">7</div>
+			<div id="cbtn8" class="col-md-1 calcBtn numBtn ">8</div>
+			<div id="cbtn9" class="col-md-1 calcBtn numBtn ">9</div>
+			<div id="cbtn0" class="col-md-1 calcBtn numBtn ">0</div>
+			<div id="cbtnP" class="col-md-1 calcBtn numBtn ">.</div>
+			<div id="cbtnPm" class="col-md-1 calcBtn actionBtn ">+-</div>
+
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+
+		<div id="cbR1" class="row">
+			<div  id="cbtn0" class="col-md-3">&nbsp;</div>
+
+			<div id="cbtnA" class="col-md-1 calcBtn actionBtn">+</div>
+			<div id="cbtnS" class="col-md-1 calcBtn actionBtn">-</div>
+			<div id="cbtnM" class="col-md-1 calcBtn actionBtn">x</div>
+			<div id="cbtnD" class="col-md-1 calcBtn actionBtn">/</div>
+			<div id="cbtnPc" class="col-md-1 calcBtn actionBtn">%</div>
+			<div id="" class="col-md-1 calcBtn "></div>
+
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+
+
+
+	</div>
+	<!-- //  end main fluid ............... -->
+
+</body>
+
+</html>

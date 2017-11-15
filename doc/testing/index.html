@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<script >
+$("document").ready( function(){
+
+
+function testArray(){
+	var arr = [];
+	var n1 = "aaa";
+	var n2 = "bbb";
+
+	var users = {};
+	var json1 = { id: 7, jasonU: {}, jasonS: {}} ;
+	var json2 =  { id: 9, jasonU: {}, jasonS: {}} ;
+
+	for(var i = 0; i < 2; i++){
+		users[i] = { id:i, jasonU: {}, jasonS: {} };
+	}
+
+var xVar = 1;
+
+
+	//$("#res").append(users[0]);
+	//$("#res").append(users[1]);
+	$("#res").append("<br />users" + users[xVar].id);
+
+	//$("#res").append(json2.n2.id);
+
+}
+
+testArray();
+
+})
+		</script>
+
+
+		<style type="text/css">
+		body{
+			background-image: url("");
+			color: #000000;
+				background-color: #ffffff;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin:0px;
+		}
+		.border1{ border: 1px solid #000000;
+		}
+		.border2{ border: 1px solid red;
+		}
+		.border3{ border: 1px solid blue;
+		}
+		.border4{ border: 1px solid green;
+		}
+
+				.logoDiv{
+				 float: left;
+				}
+				.logoImg{
+					width:90px;
+					border-radius: 8px;
+					border: 1px solid #000000
+				}
+				.userDiv{
+					font-family: 'Expletus Sans', cursive;
+					font-size: 20px;
+					font-weight: 700;
+					margin-left: 110px;
+				}
+
+				.cell{
+				}
+
+				.notStreamHd{
+					background-color: red;
+					color:#ffffff;
+				}
+				.streamHd{
+					background-color: #04fb15;
+					color:#000000;
+				}
+		</style>
+	</head>
+	<body>
+
+		<div id="cell0" class="col-xs-12 col-sm-6 col-md-4 cell border1" style="width:400px;padding 2px;">
+
+				<a id="usrlLnk0" class="usrlLnk border3" href="https://go.twitch.tv/flapiix">
+
+					<div id="pnlB0" class="pnlB border4">
+						<div id="logoDiv0" class="logoDiv border1">
+							<img id="logoImg0" class="logoImg " src="https://static-cdn.jtvnw.net/jtv_user_pictures/b61087392d772058-profile_image-300x300.png">
+						</div>
+						<div id="userDiv0" class="userDiv border2">flapiix
+						</div>
+					</div>
+
+				</a>
+
+				<div id="pnlF0" class="pnlF">
+
+				<a id="streamlLnk0" class="streamlLnk">
+					<div id="streamHd0" class="streamHd">Not Currently Streaming
+					</div>
+					<div id="prevDiv0" class="prevDiv">
+						<img id="prevImg0" class="prevImg">
+					</div>
+					<div id="descrDiv0" class="descrDiv">
+
+					</div>
+				</a>
+
+				</div>
+		</div>
+
+<div id="res">Results<br />
+</div>
+	</body>
+</html>

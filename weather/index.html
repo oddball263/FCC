@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Fira+Sans" rel="stylesheet">
+		<script src="https://use.fontawesome.com/cba1a2fa20.js"></script>
+
+
+		<script>
+
+		function getF(c) { return c * 9 / 5 + 32; }
+		function getC(f) { return (f - 32) * 5 / 9; }
+
+		var lat = 0.0;
+		var long = 0.0;
+		var tempScale = "F";
+		var currentTempF = 0;
+		var currentTempC = 0;
+
+
+		var writeWeather = function(json){
+
+			$("#message").html("json: " + JSON.stringify(json));
+
+			currentTempF = Math.round(json.main.temp); //defaults to F ????
+			currentTempC = Math.round(getC(json.main.temp)); //defaults to F ????
+
+			$("#temperature").html(currentTempF);
+
+			$("#descr").html(json.weather[0].description);
+			$('#wIcon').attr("src",json.weather[0].icon);
+
+			var mapView = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + "," + long + '&size=1000x500&zoom=8&key=AIzaSyDQ-Ak_FPICE_Xjp4AHEXkEwgxSmVhUdMo'
+			$("#mainPanel").css("background-image", "url('" + mapView + "')");
+
+		}
+
+		var getCoords = function(){
+
+			if (!navigator.geolocation){
+				$("#message").html("<h2>Geolocation is not supported by your browser</h2>");
+				return;
+			} else {
+					navigator.geolocation.getCurrentPosition(function(position) {
+						lat = position.coords.latitude;
+						long = position.coords.longitude;
+						$("#coords").html("coords: " + lat + " : " + long );
+
+					getWeather(lat, long);
+
+					});
+				}
+		}
+
+		var getWeather = function(long, lat){
+
+    	$.ajax({
+            type: "GET",
+            url: "https://fcc-weather-api.glitch.me//api/current?lon=" + long + "&lat=" + lat,
+
+            data: {},
+            dataType: 'json',
+            success: function(data){
+							writeWeather(data)
+						},
+            error: function(err) { alert("Internet Error! Can't get Weather."); },
+            beforeSend: function(xhr) {
+            }
+    	});
+
+		}
+
+		var setBtns = function(btnOn, btnOff){
+			$(btnOn).css({'color':'#05f0a9','border-color':'#05f0a9',});
+			$(btnOff).css({'color':'#777777','border-color':'#777777',});
+		};
+
+
+
+		// start jquery...  .... ..... ..... ..... ...
+		$(document).ready(function(){
+
+			var localTime = new Date().toLocaleTimeString();
+			var localDate = new Date().toLocaleDateString();
+
+			$("#wtime").html(localTime);
+			$("#wdate").html(localDate);
+
+			//$('#wIcon').attr("src","https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F03d.png?1499366020890");
+
+			getCoords();
+
+			$("#btnF").click(function(){
+				//switch temp scale, leave button showing clicked
+				if(tempScale != "F"){
+					$("#temperature").html(currentTempF);
+					tempScale = "F";
+					setBtns("#btnF", "#btnC");
+				}
+			});
+			$("#btnC").click(function(){
+				//switch temp scale
+				if(tempScale != "C"){
+					$("#temperature").html(currentTempC);
+					tempScale = "C";
+					setBtns("#btnC","#btnF");
+				}
+			});
+
+		});
+
+		</script>
+
+		<style  type="text/css" >
+		body{
+		    background-color: #59fb9f;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center top;
+				background-repeat: no-repeat;
+				background-size: cover;
+		}
+		.main{
+		  margin-top: 150px;
+		}
+		.app{
+			border: 1px solid #000000;
+			border-radius: 16px;
+			box-shadow: 5px 5px 8px #010001;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.ph{
+			 border:1px solid #000000;
+			 background-color: #000000;
+			 border-radius: 15px 15px 0px 0px;
+		}
+		.h {
+			color:#ffffff;
+			font-family: 'Baloo Chettan', sans-serif;
+			font-size:30px;
+		}
+		.d {
+			color:#f2ff5c;
+			margin-top: 8px;
+			padding:3px;
+			font-size:16px;
+			font-family: 'Fira Sans', sans-serif;
+			font-weight: 300;
+
+		}
+		.t {
+			color:#ffffff;
+			margin-top: 8px;
+			padding:3px;
+			font-size:16px;
+			font-family: 'Fira Sans', sans-serif;
+			font-weight: 300;
+		}
+
+		.temp{ margin-top: 20px;
+			color:#fc0062;
+			font-family: 'Baloo Chettan', sans-serif;
+			font-size:154px;
+			text-shadow: 6px 6px #000000; height: 140px;
+			line-height: 132px;
+		}
+		#wIcon {
+			border: 3px solid #ffffff;
+			border-radius: 50%;
+			background-color: rgb(5, 237, 133);
+			width:60px; vertical-align: top;
+		}
+
+		.descr{
+			background: rgba(0, 0, 0, 0.66); 
+			border-radius:15px;
+			padding:12px;
+		}
+
+		.c{
+			border: 1px solid #777777;
+			color: #777777;
+			padding:2px;
+			font-size:18px;
+			background-color: transparent;
+			font-family: 'Fira Sans', sans-serif;
+			font-weight: 300;
+		}
+		.f{
+			border: 1px solid #05ed85;
+			color: #05ed85;
+			padding:2px;
+			background-color: transparent;
+			font-size:18px;
+			font-family: 'Fira Sans', sans-serif;
+			font-weight: 300;
+		}
+
+		#wrapper {
+		  display: flex;
+		}
+		#left {
+		  flex: 0 0 50%;
+		}
+		#right {
+		  flex: 1;
+		}
+
+		</style>
+	</head>
+	<body>
+
+<!-- <div id="message"></div>
+<div id="coords"></div>
+-->
+
+
+<div class="container-fluid center-block main">
+
+	<div class="row ">
+		<div class="col-sm-3" style="padding:100px">&nbsp; </div>
+
+
+		<div class="col-sm-6 text-center" >
+
+
+			<div id="mainPanel" class="panel  app" >
+
+
+			  <div class="panel-heading ph" >
+
+					<div class="container-fluid ">
+						<div class="row ">
+							<div class="col-sm-6 h" >
+								Local Weather <i id="thermometer" class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>
+							</div>
+
+							<div id="wdate" class="col-sm-3 d text-center" >Today
+							</div>
+							<div id="wtime" class="col-sm-3 t text-center" >Now
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="panel-body text-left">
+
+							<div class="temp">
+								<span  id="temperature"></span><img id="wIcon"  />
+							</div>
+
+							<div class="container-fluid ">
+
+						<div class="row " >
+							<div class="col-sm-5 descr"  >
+
+								<span class="t" id="descr">descr...</span>
+
+<!-- missing values here, maybe add later... -->
+								<div id="wrapper">
+  								<div id="left" class="d">
+										Scale:<br/>
+										<!-- Wind:<br/>
+										Sun Rise:<br/>
+										Sun Set:<br/>
+										Scale:<br/> -->
+
+									</div>
+  								<div id="right" class="t">
+										<!-- <span id="hum">n/a</span><br/>
+										<span id="wind">n/a</span><br/>
+										<span id="sunR">n/a</span><br/>
+										<span id="sunS">n/a</span><br/> -->
+										<button id="btnC" class="btn c">&nbsp;C&nbsp;</button> <button id="btnF" class="btn f">&nbsp;F&nbsp;</button>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-sm-7" >
+								&nbsp;
+							</div>
+							<!-- end body row.... -->
+						</div>
+
+
+						<!-- end body container.... -->
+						</div>
+					<!-- end body panel.... -->
+				</div>
+
+					<!-- end app panel.... -->
+			</div>
+
+		<!-- end main center cell .... -->
+		</div>
+
+		<!-- end main 3rd cell .... -->
+		<div class="col-sm-3">&nbsp; </div>
+
+				<!-- end main row .... -->
+	</div>
+
+	<!-- end main container .... -->
+</div>
+
+	</body>
+</html>
+
+<!--
+cd gitdir/freecodecamp/weather browser-sync start --server --port 3001 --files="./*"
+-- >

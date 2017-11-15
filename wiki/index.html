@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link href="https://fonts.googleapis.com/css?family=Expletus+Sans:700i|Saira+Condensed:400,600" rel="stylesheet">
+		<script src="https://use.fontawesome.com/cba1a2fa20.js"></script>
+
+		<script src="../doc/js/keycodes.js"></script>
+
+		<script >
+
+		/*
+		1. WikiMedia runs the wikipedia api
+					Details Main page:
+					?? https://www.mediawiki.org/wiki/API:Main_page
+
+		2. API Entry point:
+					https://en.wikipedia.org/w/api.php
+
+		3. API Help page:
+					https://en.wikipedia.org/w/api.php or https://en.wikipedia.org/w/api.php
+
+					MediaWiki API help
+					- Main Page:
+						https://en.wikipedia.org/w/api.php
+
+						- Query action:
+							action=query
+							https://en.wikipedia.org/w/api.php?action=help&modules=query
+
+					- ! Search wikipedia for help
+
+		3. Parameters in the query string of the URL
+					a. format=json
+							i. format=jsonfm - get an HTML version of the result that is good for debugging
+							ii. Other formats: xml, php...
+					b. action=query
+							i. query Help page:
+								?? https://www.mediawiki.org/wiki/API:Query
+
+							action=query
+							titles=Albert%20Einstein
+							prop=links [try in ApiSandbox] -  internal page links
+
+		4. Search by: title, content, coordinates?
+					a. https://en.wikipedia.org/wiki/API:Search_and_discovery
+					b. sample:
+						https://www.mediawiki.org/w/api.php?action=query&list=search&srlimit=25&srsearch=nfl
+					c. params: Which type of search to perform.
+							srsearch: (required) Search for page titles or content matching this value
+							i.   srwhat: One of the following values: title, text, nearmatch
+							ii.  srinfo: Which metadata to return.
+										  Values (separate with | or alternative): totalhits, suggestion, rewrittenquery
+										  Default: totalhits|suggestion|rewrittenquery
+							iii. srprop
+							iv. Which properties to return:
+											size - Adds the size of the page in bytes.
+											wordcount - Adds the word count of the page.
+											timestamp - Adds the timestamp of when the page was last edited.
+											snippet - Adds a parsed snippet of the page.
+											titlesnippet - Adds a parsed snippet of the page title.
+											redirecttitle - Adds the title of the matching redirect.
+											redirectsnippet - Adds a parsed snippet of the redirect title.
+											sectiontitle - Adds the title of the matching section.
+											sectionsnippet - Adds a parsed snippet of the matching section title.
+											isfilematch - Adds a boolean indicating if the search matched file content.
+											categorysnippet - Adds a parsed snippet of the matching category.
+											score - Deprecated. Ignored.
+											hasrelated - Deprecated. Ignored.
+
+
+*/
+
+		// jQuery start ----------------------- // ------------------
+		$("document").ready( function(){
+
+			/* EXAMPLE:   $.each(json, function () {}); for an Array[]
+
+			var json = [  { 'red': '#f00' }, { 'green': '#0f0' }, { 'blue': '#00f' } ];
+			$.each(json, function () {
+			   $.each(this, function (name, value) {
+			      console.log(name + '=' + value);
+			   });
+			});
+			*/
+
+
+			/*
+			var lintMe = function(level, data){
+
+				var index = 1;
+				$.each(data, function(i, val) {  //search is an array of objects
+					$("#ua").append( '<div class=lnt' + level + '>Level: ' + level + ' {' + i + ': ' + val + '}</div>' );
+					lintMe(level++, this);
+				});
+
+			}
+			*/
+			var writePage = function(pgArr, pnlsPerRow){
+
+				//create page grid for results
+				writeResultsGrid(pgArr.length, pnlsPerRow);
+
+				// add results
+				for(i = 0; i < pgArr.length; i++){
+
+					$("#pnlLnk" + i).attr("href", "https://en.wikipedia.org/wiki/" + pgArr[i].title);
+					$("#pnlH" + i).html(pgArr[i].title.replace("_"," "));
+
+					if(pgArr[i].thumbSrc.length > 4) {
+						$("#imgTh" + i).attr("src", pgArr[i].thumbSrc);
+						$("#imgTh" + i).attr("alt", pgArr[i].title);
+						$("#descrDiv" + i).html(pgArr[i].descr );
+
+					} else {
+						$("#imgDiv" + i).detach();
+						$("#descrDiv" + i).detach();
+						$("#pnlB" + i).html(pgArr[i].descr );
+					}
+
+				}
+
+			}
+
+
+			function writeResultsGrid(pgArrLen, pnlsPerRow){
+
+				var rows = pgArrLen/3;
+				rows = (pgArrLen % 3) > 0 ? rows++ : rows;
+
+				var pnlId = 0; // unique id tied to pgArr for all panels
+
+				if($("#divResult")){
+					$("#divResult").remove();
+				}
+				$("#divReturn").append('<div id="divResult" class="container-fluid divResult">');
+
+				for(j = 0; j < rows; j++){
+
+					// add row div to result container div
+					$("#divResult").append('<div id="row'+ j + '" class="row">');  //closes by itself
+
+					for(i = 0; i < pnlsPerRow; i++){
+						if(pnlId < pgArrLen ){
+
+							// add col-cell div to row
+							$("#row" + j).append('<div id="cell' + pnlId + '" class="col-md-4 cell">'); //closes by itself
+
+							// add panel to cell
+							$("#cell" + pnlId).append('<div id="pM' + pnlId + '" class="panel panel-default pnlM">'); //closes by itself
+
+							// add head and body divs to panel
+							$("#pM" + pnlId).append('<a id="pnlLnk' + pnlId + '" class="pnlLnk"></a>');
+							$("#pnlLnk" + pnlId).append('<div id="pnlH' + pnlId + '" class="panel-heading pnlH">');
+							$("#pnlLnk" + pnlId).append('<div id="pnlB' + pnlId + '" class="panel-body pnlB">');
+
+							// add img and descr divs to pnlB
+							$("#pnlB" + pnlId).append('<div id="imgDiv' + pnlId +'" class="imgDiv">')
+							$("#pnlB" + pnlId).append('<div id="descrDiv' + pnlId +'" class="descrDiv">')
+							$("#imgDiv" + pnlId).append('<img id="imgTh' + pnlId + '" class="imgTh">')
+
+
+
+							pnlId++
+						}
+					}
+				}
+			}
+
+
+			//get variables out of the returned JSON data
+			function getResults(data, pnlsPerRow){
+
+				//start moving the search stuff up
+				$( "#top" ).animate( {top: "0px"}, 1000);
+				$( "#top" ).css({background: "rgba(1, 3, 5, 0.6)"});
+
+				//Will be an array of wikiPg object - one for each record found
+				var pgArr = [];
+
+				// data I want is in data.query.pages
+				// each object is named by pageId
+				$.each(data.query.pages, function(pageid, pageObj) {  //search is an array of objects
+
+					//object to hold variables I want
+					//var pg = new wikiPg(pageid, pageObj.title, 'No details found...', '');
+					var wikiPg = {pageId:pageid, title:pageObj.title, descr:'No details found...', thumbSrc:''};
+
+					// make description
+					var descr = "";
+					if(pageObj.terms){
+
+						if(pageObj.terms.description){
+							descr = pageObj.terms.description;
+						}
+						if(pageObj.terms.label){
+							if(pageObj.terms.label.toLowerCase != pageObj.title.toLowerCase) {
+								descr += " " + pageObj.terms.label;
+							}
+						}
+						if(pageObj.terms.alias){
+							if(pageObj.terms.alias.toLowerCase != pageObj.title.toLowerCase) {
+								descr += " " + pageObj.terms.alias;
+							}
+						}
+
+					}
+					if(descr.length > 0){
+						wikiPg.descr = descr.replace("_"," ");
+					}
+					// get thumbnail img src
+					if(pageObj.thumbnail){
+						if(pageObj.thumbnail.source){
+							wikiPg.thumbSrc = pageObj.thumbnail.source;
+						}
+					}
+					//add page object to pgArr
+					pgArr.push(wikiPg);
+				});
+
+				writePage(pgArr, pnlsPerRow);
+			}
+
+
+
+			// handle search click -------------------
+			$("#btnAJAX").click(function(){
+				searchWiki();
+			});
+
+			// handle search enter keypress -------------------
+			// Using keycode.js for key trapping of "enter" key
+			// supposed to be cross-browser
+			$(document).keydown(function(e) {
+			  // $("#key").text(getPressedKey(e));
+			  // console.log(getPressedKey(e));
+			  if (getPressedKey(e)=="enter") {
+			    e.preventDefault();
+					searchWiki();
+			  }
+			});
+
+
+			// ajax to wikipedia....
+			function searchWiki(){
+
+				var qtyResults = 48;
+				var pnlsPerRow = 3;
+
+				var srchVal = $("#searchVal").val();
+
+				/* Linked Page and linked Detail search...
+				'https://en.wikipedia.org/w/api.php?action=query&formatversion=2&generator=prefixsearch&gpssearch=Albert%20Ei&gpslimit=10&prop=pageimages%7Cpageterms&piprop=thumbnail&pithumbsize=50&pilimit=10&redirects=&wbptterms=description'
+				*/
+				$.ajax({
+						url: 'https://en.wikipedia.org/w/api.php',
+						data: { action: 'query',
+										format:'json',
+										generator: 'prefixsearch',
+										gpssearch:srchVal,
+										gpslimit: qtyResults,
+										prop: 'pageimages|pageterms',
+										piprop:'thumbnail',
+										pithumbsize: 800,
+										pilimit: qtyResults,
+										redirects:''
+										//wbptterms: 'description' getting ALL pageterms above
+									},
+						dataType: 'jsonp',
+						success: function (data) {
+							console.log('Success');
+							getResults(data, pnlsPerRow);
+						}
+					}).fail(function(data){
+						console.log("Failed wb: " + JSON.stringify(data));
+					});
+			};
+
+
+	});
+				/* Returns list of pages only
+				var strUrl = 'https://en.wikipedia.org/w/api.php?action=query&list=search&srlimit=25&srsearch=' + srchVal;
+
+				//To get around brower-origin issue, define the callback in the params
+				$.ajax({
+				  url: 'https://en.wikipedia.org/w/api.php',
+				  data: { action: 'query', list: 'search', srsearch: 'nfl', srlimit: 2, format: 'json' },
+				  dataType: 'jsonp',
+				  success: function (data) {
+						$("#ua").append( '<br /><br />=Success:<br /> ' + JSON.stringify(data));
+				  }
+				}).fail(function(data){
+					console.log("Failed: " + JSON.stringify(data));
+				}).always( function(data){
+						console.log("always: ... ");
+						//$("#ua").append( '<br /><br />=Always:<br />' + data.query.search[0]["snippet"] );
+
+						$.each(data.query.search, function(j, s) {  //search is an array of objects
+							$("#ua").append( '<br /><br />Search['+ j + ']:');
+
+							$.each(this, function(i, prop) {     // foe each object in search[], return peoperty
+								$("#ua").append( '<br />&nbsp;&nbsp;&nbsp;&nbsp;Property: '+ i +": " + prop);
+							});
+						});
+
+				});
+				*/
+
+				/*pageids example
+				$.ajax({
+						url: '//www.wikidata.org/w/api.php',
+						data: { action: 'query', pageids: '1683729', prop:'revisions',rvprop:'content', format: 'json' },
+						dataType: 'jsonp',
+						success: function (y) {
+							$("#ua").append( '<hr />' + JSON.stringify(y));
+						}
+					}).fail(function(data){
+						console.log("Failed y: " + JSON.stringify(y));
+					});
+					*/
+
+
+
+
+
+		</script>
+
+		<style type="text/css">
+		body{
+			background-image: url("http://www.active770.com/webdev/wiki/sky-lights-space-dark.jpg");
+			color: #ffffff;
+		    background-color: #000000;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin:0px;
+		}
+		.cent {
+				 height:300px;
+				 width:300px;
+				 margin:auto;
+				 top:50%;
+				 left:50%;
+				 position:absolute;
+		}
+
+		.top{
+			position: fixed;
+			padding:40px;
+			height: 260px;
+			width: 100%;
+			top: 150px;
+			z-index: 10000;
+		}
+		.pageHead{
+			font-family: 'Expletus Sans', cursive;
+			font-size: 68px;
+			font-weight: 700;
+			letter-spacing: 4px;
+			word-spacing: 5px;
+			text-align: center;
+			text-shadow: 5px 5px 3px #000000;
+		}
+
+		a {
+			text-decoration: none;
+		}
+		a:hover {
+			color: rgb(255, 153, 0);
+			font-weight: 600;
+			text-decoration: none;
+		}
+		img{
+			width:140px;
+			text-align: left;
+		}
+
+		.divResult {
+		  width: 90%
+		}
+		.pnlM{
+				border: 1px solid #000000;
+				border-radius: 13px;
+				box-shadow: 5px 5px 5px #000000;;
+			}
+		.pnlH {
+			border-radius: 12px 12px 0px 0px;
+			font-family: 'Expletus Sans', cursive;
+			font-size: 20px;
+			font-weight: 700;
+			background-color: rgb(121, 148, 194);
+			border-bottom: 2px solid #000000;
+			color: #000000;
+		}
+		.pnlB {
+			border-radius: 0px 0px 12px 12px;
+ 			font-family: 'Saira Condensed', sans-serif;
+			font-size: 16px; font-weight: 300;
+		}
+
+		.imgDiv{
+		 float: left;
+		}
+		.descrDiv{
+			margin-left: 150px;
+		}
+		.search{
+			margin-top:22px;
+			font-style:italic;
+			font-size:18px;
+			font-weight:400;
+			color:#ffffff ;
+			height:52px;
+			padding:6px;
+			background: rgba(15, 31, 30, 0.4);
+			border: 4px solid rgb(173, 207, 251);
+			border-radius: 10px;
+			width:400px;
+			}
+		.magnify{
+			 color:#14ff00;
+			 font-size:46px;
+			 background-color: transparent;
+			 border: none;
+		}
+		</style>
+
+	</head>
+	<body>
+
+		<div class=" text-center top" id="top" >
+
+			<div class="pageHead">
+				Wikipedia Search...
+			</div>
+
+			<div class=" text-center" style="margin-top:16px;">
+
+				<input type="text"  id="searchVal" class="search" placeholder="Search Wikipedia" >
+
+				<button type="button" id="btnAJAX" class=" btn magnify" ><i class="fa fa-search" aria-hidden="true"></i></button>
+			</div>
+
+		</div>
+
+<div class="spcr1" style="height:300px;">&nbsp;</div>
+
+<div id="divReturn"></div>
+
+
+
+</body>
+</html>

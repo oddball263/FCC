@@ -1,0 +1,43 @@
+{
+	"batchcomplete": "",
+
+	"continue": {
+		"sroffset": 2,
+		"continue": "-||"
+	},
+
+	"query": {
+			"searchinfo": {
+			"totalhits": 2104
+			},
+			"search": [{
+				"ns": 0,
+				"title": "Q1750919",
+				"pageid": 1683729,
+				"size": 9314,
+				"wordcount": 99,
+				"snippet": "NFL Draft\nNational Football League Draft\nDraft de la NFL\nNFL Draft\nDraft NFL\nNFLドラフト\nNFL Draft\nDraft da NFL\nДрафт НФЛ\nDraft NFL\nNFL选秀\nNFL选秀\nNFL 드래프트\nדראפט",
+				"timestamp": "2017-06-23T12:09:52Z"
+			}, {
+				"ns": 0,
+				"title": "Q1883234",
+				"pageid": 1813416,
+				"size": 10319,
+				"wordcount": 96,
+				"snippet": "Madden NFL\nMadden NFL\nMadden NFL\nMadden NFL\nMadden NFL\nMadden NFL\nMadden NFL\nマッデンNFL\nMadden NFL\nMadden NFL\nMadden NFL\nMadden NFL\nمادن إن إف إل\nMadden NFL\nComputerspielserie",
+				"timestamp": "2017-09-22T07:48:31Z"
+			}]
+	}
+}
+
+Top Level: 							Object with 3 properties ('batchcomplete', 'continue', 'query')
+
+1. batchcomplete: 			string property of top level
+2. continue: 						{}  Object with one property ('searchinfo')
+			1. searchinfo			{}  Object with one property ('totalhits')
+					totalhits			property with a number value (2104)
+
+3. query {} 						{} object with one property "search"
+			1. search: 				[] Array with 2 search objects
+					[ 1, 2]  			{} search objects - with 7 properties ea.
+														('ns', 'title','pageid', 'size','wordcount','snippet','timestamp')

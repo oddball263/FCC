@@ -1,0 +1,225 @@
+habathcx: {
+	"stream": null,
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/habathcx",
+		"channel": "https://api.twitch.tv/kraken/channels/habathcx"
+	}
+}
+noobs2ninjas: {
+	"stream": null,
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/noobs2ninjas",
+		"channel": "https://api.twitch.tv/kraken/channels/noobs2ninjas"
+	}
+}
+storbeck: {
+	"stream": null,
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/storbeck",
+		"channel": "https://api.twitch.tv/kraken/channels/storbeck"
+	}
+}
+cretetion: {
+	"stream": null,
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/cretetion",
+		"channel": "https://api.twitch.tv/kraken/channels/cretetion"
+	}
+}
+freecodecamp: {
+	"stream": null,
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/freecodecamp",
+		"channel": "https://api.twitch.tv/kraken/channels/freecodecamp"
+	}
+}
+ESL_SC2: {
+	"stream": {
+		"_id": 26566742576,
+		"game": "StarCraft II",
+		"viewers": 379,
+		"video_height": 720,
+		"average_fps": 50,
+		"delay": 0,
+		"created_at": "2017-10-25T03:14:40Z",
+		"is_playlist": false,
+		"stream_type": "live",
+		"preview": {
+			"small": "https://static-cdn.jtvnw.net/previews-ttv/live_user_esl_sc2-80x45.jpg",
+			"medium": "https://static-cdn.jtvnw.net/previews-ttv/live_user_esl_sc2-320x180.jpg",
+			"large": "https://static-cdn.jtvnw.net/previews-ttv/live_user_esl_sc2-640x360.jpg",
+			"template": "https://static-cdn.jtvnw.net/previews-ttv/live_user_esl_sc2-{width}x{height}.jpg"
+		},
+		"channel": {
+			"mature": false,
+			"partner": true,
+			"status": "RERUN: TY vs. GuMiho [TvT] - Quarterfinal - IEM Katowice 2017",
+			"broadcaster_language": "en",
+			"display_name": "ESL_SC2",
+			"game": "StarCraft II",
+			"language": "it",
+			"_id": 30220059,
+			"name": "esl_sc2",
+			"created_at": "2012-05-02T09:59:20Z",
+			"updated_at": "2017-10-25T19:05:19Z",
+			"delay": null,
+			"logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/esl_sc2-profile_image-d6db9488cec97125-300x300.jpeg",
+			"banner": null,
+			"video_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/ae3df2e7073e5ab0-channel_offline_image-1920x1080.png",
+			"background": null,
+			"profile_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/esl_sc2-profile_banner-f8295b33d1846e75-480.jpeg",
+			"profile_banner_background_color": "#050506",
+			"url": "https://www.twitch.tv/esl_sc2",
+			"views": 68527063,
+			"followers": 197675,
+			"_links": {
+				"self": "https://api.twitch.tv/kraken/channels/esl_sc2",
+				"follows": "https://api.twitch.tv/kraken/channels/esl_sc2/follows",
+				"commercial": "https://api.twitch.tv/kraken/channels/esl_sc2/commercial",
+				"stream_key": "https://api.twitch.tv/kraken/channels/esl_sc2/stream_key",
+				"chat": "https://api.twitch.tv/kraken/chat/esl_sc2",
+				"features": "https://api.twitch.tv/kraken/channels/esl_sc2/features",
+				"subscriptions": "https://api.twitch.tv/kraken/channels/esl_sc2/subscriptions",
+				"editors": "https://api.twitch.tv/kraken/channels/esl_sc2/editors",
+				"teams": "https://api.twitch.tv/kraken/channels/esl_sc2/teams",
+				"videos": "https://api.twitch.tv/kraken/channels/esl_sc2/videos"
+			}
+		},
+		"_links": {
+			"self": "https://api.twitch.tv/kraken/streams/esl_sc2"
+		}
+	},
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/ESL_SC2",
+		"channel": "https://api.twitch.tv/kraken/channels/ESL_SC2"
+	}
+}
+RobotCaleb: {
+	"stream": null,
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/RobotCaleb",
+		"channel": "https://api.twitch.tv/kraken/channels/RobotCaleb"
+	}
+}
+OgamingSC2: {
+	"stream": {
+		"_id": 26570266400,
+		"game": "StarCraft II",
+		"viewers": 1330,
+		"video_height": 1080,
+		"average_fps": 60.0100857287,
+		"delay": 0,
+		"created_at": "2017-10-25T16:47:45Z",
+		"is_playlist": false,
+		"stream_type": "live",
+		"preview": {
+			"small": "https://static-cdn.jtvnw.net/previews-ttv/live_user_ogamingsc2-80x45.jpg",
+			"medium": "https://static-cdn.jtvnw.net/previews-ttv/live_user_ogamingsc2-320x180.jpg",
+			"large": "https://static-cdn.jtvnw.net/previews-ttv/live_user_ogamingsc2-640x360.jpg",
+			"template": "https://static-cdn.jtvnw.net/previews-ttv/live_user_ogamingsc2-{width}x{height}.jpg"
+		},
+		"channel": {
+			"mature": false,
+			"partner": true,
+			"status": "Olimoleague Week #104 - INnoVation vs Elazer - Ro4 [Concours sponsorisé par Blizzard]",
+			"broadcaster_language": "fr",
+			"display_name": "OgamingSC2",
+			"game": "StarCraft II",
+			"language": "fr",
+			"_id": 71852806,
+			"name": "ogamingsc2",
+			"created_at": "2014-09-24T15:06:58Z",
+			"updated_at": "2017-10-25T19:05:42Z",
+			"delay": null,
+			"logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/ogamingsc2-profile_image-9021dccf9399929e-300x300.jpeg",
+			"banner": null,
+			"video_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/ogamingsc2-channel_offline_image-1570cf4930177aa3-1920x1080.jpeg",
+			"background": null,
+			"profile_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/ogamingsc2-profile_banner-d418aed2c0ef7d35-480.jpeg",
+			"profile_banner_background_color": "",
+			"url": "https://www.twitch.tv/ogamingsc2",
+			"views": 28773394,
+			"followers": 61456,
+			"_links": {
+				"self": "https://api.twitch.tv/kraken/channels/ogamingsc2",
+				"follows": "https://api.twitch.tv/kraken/channels/ogamingsc2/follows",
+				"commercial": "https://api.twitch.tv/kraken/channels/ogamingsc2/commercial",
+				"stream_key": "https://api.twitch.tv/kraken/channels/ogamingsc2/stream_key",
+				"chat": "https://api.twitch.tv/kraken/chat/ogamingsc2",
+				"features": "https://api.twitch.tv/kraken/channels/ogamingsc2/features",
+				"subscriptions": "https://api.twitch.tv/kraken/channels/ogamingsc2/subscriptions",
+				"editors": "https://api.twitch.tv/kraken/channels/ogamingsc2/editors",
+				"teams": "https://api.twitch.tv/kraken/channels/ogamingsc2/teams",
+				"videos": "https://api.twitch.tv/kraken/channels/ogamingsc2/videos"
+			}
+		},
+		"_links": {
+			"self": "https://api.twitch.tv/kraken/streams/ogamingsc2"
+		}
+	},
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/OgamingSC2",
+		"channel": "https://api.twitch.tv/kraken/channels/OgamingSC2"
+	}
+}
+FlaPiiX: {
+	"stream": {
+		"_id": 26571328384,
+		"game": "Call of Duty: Black Ops III",
+		"viewers": 200,
+		"video_height": 1080,
+		"average_fps": 60,
+		"delay": 0,
+		"created_at": "2017-10-25T19:02:21Z",
+		"is_playlist": false,
+		"stream_type": "live",
+		"preview": {
+			"small": "https://static-cdn.jtvnw.net/previews-ttv/live_user_flapiix-80x45.jpg",
+			"medium": "https://static-cdn.jtvnw.net/previews-ttv/live_user_flapiix-320x180.jpg",
+			"large": "https://static-cdn.jtvnw.net/previews-ttv/live_user_flapiix-640x360.jpg",
+			"template": "https://static-cdn.jtvnw.net/previews-ttv/live_user_flapiix-{width}x{height}.jpg"
+		},
+		"channel": {
+			"mature": false,
+			"partner": true,
+			"status": "CUSTOM ZOMBIE \"MOB OF THE DEAD RÉ-IMAGINÉE\" | Alcatraz Challenge",
+			"broadcaster_language": "fr",
+			"display_name": "FLaPiiX",
+			"game": "Call of Duty: Black Ops III",
+			"language": "fr",
+			"_id": 86729677,
+			"name": "flapiix",
+			"created_at": "2015-03-28T19:31:15Z",
+			"updated_at": "2017-10-25T19:35:25Z",
+			"delay": null,
+			"logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/b61087392d772058-profile_image-300x300.png",
+			"banner": null,
+			"video_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/e6cb546f678a7503-channel_offline_image-1920x1080.png",
+			"background": null,
+			"profile_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/074d1af2b00da445-profile_banner-480.png",
+			"profile_banner_background_color": "#006aa3",
+			"url": "https://www.twitch.tv/flapiix",
+			"views": 74919,
+			"followers": 17794,
+			"_links": {
+				"self": "https://api.twitch.tv/kraken/channels/flapiix",
+				"follows": "https://api.twitch.tv/kraken/channels/flapiix/follows",
+				"commercial": "https://api.twitch.tv/kraken/channels/flapiix/commercial",
+				"stream_key": "https://api.twitch.tv/kraken/channels/flapiix/stream_key",
+				"chat": "https://api.twitch.tv/kraken/chat/flapiix",
+				"features": "https://api.twitch.tv/kraken/channels/flapiix/features",
+				"subscriptions": "https://api.twitch.tv/kraken/channels/flapiix/subscriptions",
+				"editors": "https://api.twitch.tv/kraken/channels/flapiix/editors",
+				"teams": "https://api.twitch.tv/kraken/channels/flapiix/teams",
+				"videos": "https://api.twitch.tv/kraken/channels/flapiix/videos"
+			}
+		},
+		"_links": {
+			"self": "https://api.twitch.tv/kraken/streams/flapiix"
+		}
+	},
+	"_links": {
+		"self": "https://api.twitch.tv/kraken/streams/FlaPiiX",
+		"channel": "https://api.twitch.tv/kraken/channels/FlaPiiX"
+	}
+}

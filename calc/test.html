@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>testing</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	</head>
+	<body style="background:#000000">
+
+		<div class="" id="dvImage" style="height:100%;width:100%">
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+<br>.
+		</div>
+
+		<script type="text/javascript">
+    var images = ["IMG-8095f.jpg", "IMG-0445f.jpg", "IMG-2843-01.jpg", "img-2921-s1.jpg", "img-6469f.jpg", "daytona-moon.jpg"];
+    $(function () {
+        var i = 0;
+        $("body").css("background-image", "url(img/" + images[i] + ")");
+        setInterval(function () {
+            i++;
+            if (i == images.length) {
+                i = 0;
+            }
+            $("body").fadeOut(400, function () {
+                $(this).css("background-image", "url(img/" + images[i] + ")").fadeIn("slow");
+            });
+        }, 12000);
+    });
+
+
+
+
+					/*
+					$( ".numBtn:last-child" ).delay(1000, function() {
+
+							console.log("run");
+					 $( this ).prev().delay(2000).animate({"height":"100px","width":"100px"} ).delay(2000)
+					 // });
+		 */
+						var nums = $(".numBtn");
+						//does all at one time
+						function showNums() {
+						  nums
+
+								.css("border","1px solid #ffffff").delay(1000).animate({"height":"86px","width":"86px"},1000).delay(1000);
+						}
+						//showNums();
+
+					});
+
+					/* var div = $( "div" );
+
+					function runIt() {
+					  div
+					    .show( "slow" )
+					    .animate({ left: "+=200" }, 2000 )
+					    .slideToggle( 1000 )
+					    .slideToggle( "fast" )
+					    .animate({ left: "-=200" }, 1500 )
+					    .hide( "slow" )
+					    .show( 1200 )
+					    .slideUp( "normal", runIt );
+					}
+
+					function showIt() {
+					  var n = div.queue( "fx" );
+					  $( "span" ).text( n.length );
+					  setTimeout( showIt, 100 );
+					}
+
+					runIt();
+					showIt();
+					*/
+</script>
+	</body>
+</html>

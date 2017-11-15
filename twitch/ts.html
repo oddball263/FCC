@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+		<title></title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<link href="https://fonts.googleapis.com/css?family=Expletus+Sans:700i|Saira+Condensed:400,600" rel="stylesheet">
+
+
+<style type="text/css">
+
+body{
+	background-color: #000000;
+}
+.cent {
+		 height:300px; width:300px; margin:auto; top:50%;left:50%; position:absolute;
+}
+.pgHd{
+	color:rgb(252, 67, 111); font-family: 'Expletus Sans', cursive; font-size: 52px; font-weight: 700;
+	letter-spacing: 4px; word-spacing: 5px; text-align: left; text-shadow: 5px 5px 3px #64566e;
+	border-bottom: 2px solid #ffffff; margin: 40px; padding:10px;
+}
+a {
+	color:#d092fc; text-decoration: none;
+}
+a:hover {
+	color: rgb(0, 255, 3); font-weight: 600; text-decoration: none;
+}
+.divResult {
+	width:90%;
+}
+.cell{
+	padding:20px;  height:172px;
+}
+.logoDiv{
+ float: left; color: ##ecd3fb; font-family: 'Expletus Sans', cursive; font-size: 20px; font-weight: 700;
+}
+.userDiv{
+	color:#d092fc; font-family: 'Expletus Sans', cursive; font-size: 20px; font-weight: 700;
+	margin-left: 70px;
+}
+.logoImg{
+	width: 60px;
+	border-radius: 8px;
+	border: 2px solid #ffffff;
+}
+.streamDiv{
+	font-family: 'Expletus Sans', cursive; font-size: 12px; font-weight: 700;
+	padding-top:8px; padding-bottom:8px; text-align: center; margin-top: 8px;
+}
+.gameDiv{
+	padding-top:8px;
+	font-family: 'Expletus Sans', cursive; font-size: 16px; font-weight: 700; text-align: center;
+}
+
+</style>
+
+	</head>
+	<body>
+
+
+
+				<div id="divResult" class="container-fluid divResult">
+					<div id="row0" class="row">
+
+						<div id="cell0" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv0" class="logoDiv">
+								<img id="logoImg0" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/b61087392d772058-profile_image-300x300.png">
+							</div>
+							<div id="userDiv0" class="userDiv">
+								<a id="usrlLnk0" class="usrlLnk" href="https://go.twitch.tv/flapiix">flapiix</a>
+								<div id="streamDiv0" class="streamDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">Not Currently Streaming
+								</div>
+								<div id="gameDiv0" class="gameDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">
+								</div>
+								<div id="prevDiv0" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+						<div id="cell1" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv1" class="logoDiv">
+								<img id="logoImg1" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/esl_sc2-profile_image-d6db9488cec97125-300x300.jpeg">
+							</div>
+							<div id="userDiv1" class="userDiv">
+								<a id="usrlLnk1" class="usrlLnk" href="https://go.twitch.tv/esl_sc2">esl_sc2</a>
+								<div id="streamDiv1" class="streamDiv" style="border-top: 1px solid rgb(255, 255, 255); color: rgb(255, 255, 255);">Streaming: live
+								</div>
+								<div id="gameDiv1" class="gameDiv" style="border-top: 1px solid rgb(255, 255, 255); color: rgb(255, 255, 255);">Game: StarCraft II
+								</div>
+								<div id="prevDiv1" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+						<div id="cell2" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv2" class="logoDiv">
+								<img id="logoImg2" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/ogamingsc2-profile_image-9021dccf9399929e-300x300.jpeg">
+							</div>
+							<div id="userDiv2" class="userDiv">
+								<a id="usrlLnk2" class="usrlLnk" href="https://go.twitch.tv/ogamingsc2">ogamingsc2</a>
+								<div id="streamDiv2" class="streamDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">Not Currently Streaming
+								</div>
+								<div id="gameDiv2" class="gameDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">
+
+								</div>
+								<div id="prevDiv2" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+						<div id="cell3" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv3" class="logoDiv">
+								<img id="logoImg3" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/cretetion-profile_image-12bae34d9765f222-300x300.jpeg">
+							</div>
+							<div id="userDiv3" class="userDiv">
+								<a id="usrlLnk3" class="usrlLnk" href="https://go.twitch.tv/cretetion">cretetion</a>
+								<div id="streamDiv3" class="streamDiv" style="border-top: 1px solid rgb(255, 255, 255); color: rgb(255, 255, 255);">Streaming: live
+								</div>
+								<div id="gameDiv3" class="gameDiv" style="border-top: 1px solid rgb(255, 255, 255); color: rgb(255, 255, 255);">Game: Farming Simulator 17
+								</div>
+								<div id="prevDiv3" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+						<div id="cell4" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv4" class="logoDiv">
+								<img id="logoImg4" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_image-d9514f2df0962329-300x300.png">
+							</div>
+							<div id="userDiv4" class="userDiv">
+								<a id="usrlLnk4" class="usrlLnk" href="https://go.twitch.tv/freecodecamp">freecodecamp</a>
+								<div id="streamDiv4" class="streamDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">Not Currently Streaming
+								</div>
+								<div id="gameDiv4" class="gameDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">
+
+								</div>
+								<div id="prevDiv4" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+						<div id="cell5" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv5" class="logoDiv">
+								<img id="logoImg5" class="logoImg">
+							</div>
+							<div id="userDiv5" class="userDiv">
+								<a id="usrlLnk5" class="usrlLnk" href="https://go.twitch.tv/storbeck">storbeck</a>
+								<div id="streamDiv5" class="streamDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">Not Currently Streaming
+								</div>
+								<div id="gameDiv5" class="gameDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">
+
+								</div>
+								<div id="prevDiv5" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="row1" class="row">
+						<div id="cell6" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv6" class="logoDiv">
+								<img id="logoImg6" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/habathcx-profile_image-d75385dbe4f42a66-300x300.jpeg">
+							</div>
+							<div id="userDiv6" class="userDiv">
+								<a id="usrlLnk6" class="usrlLnk" href="https://go.twitch.tv/habathcx">habathcx</a>
+								<div id="streamDiv6" class="streamDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">Not Currently Streaming
+								</div>
+								<div id="gameDiv6" class="gameDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">
+
+								</div>
+								<div id="prevDiv6" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+						<div id="cell7" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv7" class="logoDiv">
+								<img id="logoImg7" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/robotcaleb-profile_image-9422645f2f0f093c-300x300.png">
+							</div>
+							<div id="userDiv7" class="userDiv">
+								<a id="usrlLnk7" class="usrlLnk" href="https://go.twitch.tv/robotcaleb">robotcaleb</a>
+								<div id="streamDiv7" class="streamDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">Not Currently Streaming
+								</div>
+								<div id="gameDiv7" class="gameDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">
+
+								</div>
+								<div id="prevDiv7" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+						<div id="cell8" class="col-xs-12 col-sm-6 col-md-4 cell">
+							<div id="logoDiv8" class="logoDiv">
+								<img id="logoImg8" class="logoImg" src="https://static-cdn.jtvnw.net/jtv_user_pictures/noobs2ninjas-profile_image-34707f847a73d934-300x300.png">
+							</div>
+							<div id="userDiv8" class="userDiv">
+								<a id="usrlLnk8" class="usrlLnk" href="https://go.twitch.tv/noobs2ninjas">noobs2ninjas</a>
+								<div id="streamDiv8" class="streamDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">Not Currently Streaming
+								</div>
+								<div id="gameDiv8" class="gameDiv" style="border-top: 1px dashed rgb(100, 86, 110); color: rgb(100, 86, 110);">
+
+								</div>
+								<div id="prevDiv8" class="prevDiv">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+</body>
+</html>

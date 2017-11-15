@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Twitch API usage</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link href="https://fonts.googleapis.com/css?family=Expletus+Sans:700i|Saira+Condensed:400,600" rel="stylesheet">
+		<script src="https://use.fontawesome.com/cba1a2fa20.js"></script>
+
+
+		<script >
+
+		/* User Story: I can see whether Free Code Camp is currently streaming on Twitch.tv.
+		User Story: I can click the status output and be sent directly to the Free Code Camp's Twitch.tv channel.
+		User Story: if a Twitch user is currently streaming, I can see additional details about what they are streaming.
+		*/
+
+		/*
+		USAGE:
+		Replace the Twitch API base URL
+		'https://api.twitch.tv/kraken' with
+		'https://wind-bow.gomix.me/twitch-api' .
+		Use this endpoint according to theTwitch API documentation.
+		NOTES:
+		This server caches data to lower the request rate.
+		To prevent abuses this server accepts GET requests only,
+		and serves only routes =
+		/users/:user ,
+		/channels/:channel ,
+		/streams/:stream .
+		These are more than enough to complete the challenge.
+		*/
+
+		// jQuery start ----------------------- // ------------------
+		$("document").ready( function(){
+
+			var myChannels = ["FlaPiiX", "ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+
+			if(createResultsGrid(myChannels.length, 6)){
+
+				for(var i = 0; i < myChannels.length; i++){
+
+					//will get users and callBack WriteUsers
+					getAjax("users/", myChannels[i], i);
+
+				}
+
+			}
+
+
+			function resUsers(data,i){
+					$("#res").append("<br/><br/>usr: "+ Date() + ", i: " + i + ", json: " + JSON.stringify(data));
+			}
+			function resStream(data,i){
+					$("#res").append("<br /><br/>stream: "+ Date() + ", i: " + i + ", json: " + JSON.stringify(data));
+			}
+
+
+
+			function writeUser(data, i){
+
+				//resUsers(data, i);
+
+				//Panel body
+				$("#usrlLnk" + i).attr("href", "https://go.twitch.tv/" + data.name);
+				$("#usrlLnk" + i).html(data.name);
+				if(data.logo){
+					$("#logoImg" + i).attr("src", data.logo);
+				} else {
+					$("#logoImg" + i).attr("src", "https://inetteacher.com/webdev/twitch/missingLogo.png");
+				}
+
+				getAjax("streams/", data.name, i);
+			}
+
+
+			function writeStream(data, i){
+
+				//resStream(data, i);
+
+					//if( data) {
+						if(data.stream ){
+						$("#streamDiv" + i).html("Streaming: " + data.stream.stream_type);
+						$("#gameDiv" + i).html("Game: " + data.stream.game);
+						$("#streamDiv" + i).css({"border-top":"1px solid #ffffff", "color": "#ffffff"});
+						$("#gameDiv" + i).css({"border-top":"1px solid #ffffff", "color": "#ffffff"});
+
+					} else {
+						$("#streamDiv" + i).html("Not Currently Streaming");
+						$("#streamDiv" + i).css({"border-top":"1px dashed #64566e", "color": "#64566e"});
+						$("#gameDiv" + i).css({"border-top":"1px dashed #64566e", "color": "#64566e"});
+
+					}
+				//}
+			}
+
+
+			//create the row, cell and panel objects for each user.
+			//differentiate user's panels using user Array index
+			function createResultsGrid(dataLen, cols){
+
+				var rows = dataLen/cols;
+				rows = (dataLen % cols) > 0 ? rows++ : rows;
+
+				var pnlId = 0; // unique id tied to pgArr for all panels
+
+				if($("#divResult")){
+					$("#divResult").remove();
+				}
+				$("#divReturn").append('<div id="divResult" class="container-fluid divResult">');
+
+				for(j = 0; j < rows; j++){
+
+					// add row div to result container div
+					$("#divResult").append('<div id="row'+ j + '" class="row">');  //closes by itself
+
+					for(i = 0; i < cols; i++){
+						if(pnlId < dataLen ){
+
+							// add col-cell div to row
+							$("#row" + j).append('<div id="cell' + pnlId + '" class="col-xs-12 col-sm-6 col-md-4 cell">'); //closes by itself
+
+							$("#cell" + pnlId).append('<div id="logoDiv' + pnlId +'" class="logoDiv">');
+							$("#logoDiv" + pnlId).append('<img id="logoImg' + pnlId + '" class="logoImg">');
+							$("#cell" + pnlId).append('<div id="userDiv' + pnlId +'" class="userDiv">');
+							$("#userDiv" + pnlId).append('<a id="usrlLnk' + pnlId + '" class="usrlLnk">b');
+
+							$("#userDiv" + pnlId).append('<div id="streamDiv' + pnlId + '" class="streamDiv">');
+
+							$("#userDiv" + pnlId).append('<div id="gameDiv' + pnlId + '" class="gameDiv">');
+							$("#userDiv" + pnlId).append('<div id="prevDiv' + pnlId + '" class="prevDiv">');
+
+							pnlId++
+						}
+					}
+				}
+				return true;
+			}
+
+
+			// 1. Get user JSON
+			// 2. Get each users streaming data
+			// 3. Write the data to the Results grid
+			function getAjax(par, usr, i){
+
+				$.ajax({
+					url: 'https://wind-bow.gomix.me/twitch-api/' + par + usr,
+					//data: { action: 'query',format:'json',generator: 'prefixsearch'},
+					dataType: 'jsonp',
+					success: function (data) {
+						if( par == "users/"){
+							console.log('SuccessUsers');
+							writeUser(data, i);
+						}else {
+							console.log('SuccessStreams');
+							writeStream(data, i);
+						}
+					}
+				}).fail(function(data){
+					console.log("Failed wb: " + JSON.stringify(data));
+					return false;
+				});
+			}
+
+	});
+
+		</script>
+
+		<style type="text/css">
+
+		body{
+			background-color: #000000
+		}
+		.cent {
+				 height:300px;width:300px; margin:auto; top:50%;left:50%;position:absolute;
+		}
+		.pgHd{
+			color:rgb(252, 67, 111);font-family: 'Expletus Sans', cursive;font-size: 52px;font-weight: 700;
+			letter-spacing: 4px; word-spacing: 5px; text-align: left;text-shadow: 5px 5px 3px #64566e;
+			border-bottom: 2px solid #fbbd00; margin: 40px; padding:10px;
+		}
+		a {
+			color:#d092fc; text-decoration: none;
+		}
+		a:hover {
+			color: rgb(0, 255, 3);font-weight: 600; text-decoration: none;
+		}
+		.divResult {
+			width:90%;
+		}
+		.cell{
+			padding:20px; height:172px;
+		}
+		.logoDiv{
+		 float: left; color:##ecd3fb; font-family: 'Expletus Sans', cursive; font-size: 20px; font-weight: 700;
+		}
+		.userDiv{
+			color:#d092fc; font-family: 'Expletus Sans', cursive; font-size: 20px;font-weight: 700;margin-left: 70px;
+		}
+		.logoImg{
+			width: 60px;
+			border-radius: 8px;
+			border: 2px solid #ffffff
+		}
+		.streamDiv{
+			font-family: 'Expletus Sans', cursive; font-size: 12px;font-weight: 700;
+			padding-top:8px; padding-bottom:8px;text-align: center; margin-top: 8px;
+		}
+		.gameDiv{
+			padding-top:8px;
+			font-family: 'Expletus Sans', cursive;font-size: 16px; font-weight: 700; text-align: center;
+		}
+
+		</style>
+
+	</head>
+	<body >
+
+		<div id="res"></div>
+
+		<div class="pgHd text-center">My twitch Users</div>
+
+		<div id="divReturn"></div>
+
+
+	</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Twitch API usage</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link href="https://fonts.googleapis.com/css?family=Expletus+Sans:700i|Saira+Condensed:400,600" rel="stylesheet">
+		<script src="https://use.fontawesome.com/cba1a2fa20.js"></script>
+
+
+		<script >
+
+		/* User Story: I can see whether Free Code Camp is currently streaming on Twitch.tv.
+		User Story: I can click the status output and be sent directly to the Free Code Camp's Twitch.tv channel.
+		User Story: if a Twitch user is currently streaming, I can see additional details about what they are streaming.
+		*/
+
+		/*
+		USAGE:
+		Replace the Twitch API base URL
+		'https://api.twitch.tv/kraken' with
+		'https://wind-bow.gomix.me/twitch-api' .
+		Use this endpoint according to theTwitch API documentation.
+		NOTES:
+		This server caches data to lower the request rate.
+		To prevent abuses this server accepts GET requests only,
+		and serves only routes =
+		/users/:user ,
+		/channels/:channel ,
+		/streams/:stream .
+		These are more than enough to complete the challenge.
+		*/
+
+		// jQuery start ----------------------- // ------------------
+		$("document").ready( function(){
+
+			//array to hold twitch user objects
+			var MyUsers = {};
+
+			var myChannels = ["FlaPiiX", "ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+
+			makeUserObjects();
+
+			function makeUserObjects(){
+					//Add user objects to MyUsers
+					for(var i = 0; i < myChannels.length; i++){
+						MyUsers[myChannels[i]] = { id: i, name: myChannels[i], jasonU: {}, jasonS: {} };
+					}
+					resUsers();
+			}
+
+			function resUsers(){
+				$.each(MyUsers, function(i, usr){
+
+					$("#res").append("<br / />usr: "+ Date() + ", i: " + i + ", usr json: " + JSON.stringify(usr));
+
+				});
+			}
+
+			getData();
+			//createResultsGrid(Object.keys(MyUsers).length, 6);
+
+
+			function getData(){
+				$.each(MyUsers, function(i, usr){
+
+					usr.jsonU = getAjax("users/", usr.name);
+
+					//usr.jsonS = getAjax("streams/", usr.name);
+				});
+			}
+
+
+			function showData(data){
+				if(data.stream){
+					$("#res").append("<br />showData: "+ Date() + ", data.stream.channel.name: " + data.stream.channel.name );
+					$("#res").append("<br />showData: "+ Date() + ", data.channel.game: " + data.stream.channel.game );
+					$("#res").append("<br />showData: "+ Date() + ", data.channel.game: " + data.stream.channel.game );
+					$("#res").append("<br />showData: "+ Date() + ", data.channel.status: " + data.stream.channel.status );
+					$("#res").append("<br />showData: "+ Date() + ", data.stream.stream_type: " + data.stream.stream_type );
+				}
+
+			}
+
+
+			function writeUser(data, i){
+				$("#res").append("<br />WRITING USER: "+ Date() + ", Object.keys(MyUsers).length: " + Object.keys(MyUsers).length );
+
+					var i =
+					var jsonUser = myUsrs[i];
+					var jsonStream = usrStreams[i];
+
+					//Panel body
+					$("#usrlLnk" + i).attr("href", "https://go.twitch.tv/" + data.name);
+					$("#userDiv" + i).html(jsonUser.name);
+					if(jsonUser.logo){
+						$("#logoImg" + i).attr("src", jsonUser.logo);
+					} else {
+						$("#logoDiv" + i).html("?");
+					}
+
+				//	$("#res").append("<br />jsonStream: " + JSON.stringify(jsonStream));
+
+					//Panel Footer
+					if( jsonStream.stream != null ) {
+						$("#streamlLnk" + i).attr("href", "https://www.twitch.tv/" + jsonUser.name);
+						$("#streamHd" + i).html("Streaming " + jsonStream.stream.stream_type);
+						$("#descrDiv" + i).html("Game " + jsonStream.stream.game);
+						$("#prevImg" + i).attr("src",  + jsonStream.stream.preview.small);
+					} else {
+						$("#streamHd" + i).html("No Streams");
+					}
+			}
+
+
+			//create the row, cell and panel objects for each user.
+			//differentiate user's panels using user Array index
+			function createResultsGrid(dataLen, cols){
+				 $("#res").append("<br /><br />RESULTS GRID: "+ Date() + ", Object.keys(MyUsers).length: " + Object.keys(MyUsers).length);
+
+				var rows = dataLen/cols;
+				rows = (dataLen % cols) > 0 ? rows++ : rows;
+
+				var pnlId = 0; // unique id tied to pgArr for all panels
+
+				if($("#divResult")){
+					$("#divResult").remove();
+				}
+				$("#divReturn").append('<div id="divResult" class="container-fluid divResult">');
+
+				for(j = 0; j < rows; j++){
+
+					// add row div to result container div
+					$("#divResult").append('<div id="row'+ j + '" class="row">');  //closes by itself
+
+					for(i = 0; i < cols; i++){
+						if(pnlId < dataLen ){
+
+							// add col-cell div to row
+							$("#row" + j).append('<div id="cell' + pnlId + '" class="col-xs-12 col-sm-6 col-md-4 cell">'); //closes by itself
+
+							// add panel to cell
+							$("#cell" + pnlId).append('<div id="pM' + pnlId + '" class="panel panel-default pnlM">'); //closes by itself
+
+							// add body divs and link to user
+							$("#pM" + pnlId).append('<a id="usrlLnk' + pnlId + '" class="usrlLnk">');
+							$("#usrlLnk" + pnlId).append('<div id="pnlB' + pnlId + '" class="pnlB">');
+
+							// add img div and user divs to pnlB
+							$("#pnlB" + pnlId).append('<div id="logoDiv' + pnlId +'" class="logoDiv">');
+							$("#pnlB" + pnlId).append('<div id="userDiv' + pnlId +'" class="userDiv">');
+
+							// add img and user link to pnlB
+							$("#logoDiv" + pnlId).append('<img id="logoImg' + pnlId + '" class="logoImg">');
+
+							// Footer: div to panel - not visible if not streaming
+							$("#pM" + pnlId).append('<a id="streamlLnk' + pnlId + '" class="streamlLnk">');
+							$("#pM" + pnlId).append('<div id="pnlF' + pnlId + '" class="pnlF">');
+							$("#streamlLnk" + pnlId).append('<div id="streamHd' + pnlId + '" class="streamHd">');
+							$("#streamlLnk" + pnlId).append('<div id="prevDiv' + pnlId + '" class="prevDiv">');
+							$("#prevDiv" + pnlId).append('<img id="prevImg' + pnlId + '" class="prevImg">');
+							$("#streamlLnk" + pnlId).append('<div id="descrDiv' + pnlId + '" class="descrDiv">');
+
+							pnlId++
+						}
+					}
+				}
+			}
+
+
+			// 1. Get user JSON
+			// 2. Get each users streaming data
+			// 3. Write the data to the Results grid
+			function getAjax(par, usr){
+
+				$("#res").append("<br />AJAX: "+ Date() + ", " + par + ", " + usr + ", Object.keys(MyUsers).length: " + Object.keys(MyUsers).length);
+
+				$.ajax({
+					url: 'https://wind-bow.gomix.me/twitch-api/' + par + usr,
+					//data: { action: 'query',format:'json',generator: 'prefixsearch'},
+					dataType: 'jsonp',
+					success: function (data) {
+						if( par == "users/"){
+							console.log('SuccessUsers');
+							writeUser(data);
+						}else {
+							console.log('SuccessStreams');
+						}
+					}
+				}).fail(function(data){
+					console.log("Failed wb: " + JSON.stringify(data));
+					return false;
+				});
+			}
+
+	});
+
+		</script>
+
+		<style type="text/css">
+		body{
+			background-image: url("");
+			color: #000000;
+		    background-color: #ffffff;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin:0px;
+		}
+		.cent {
+				 height:300px;
+				 width:300px;
+				 margin:auto;
+				 top:50%;
+				 left:50%;
+				 position:absolute;
+		}
+		.pgHd{
+			font-family: 'Expletus Sans', cursive;
+			font-size: 68px;
+			font-weight: 700;
+			letter-spacing: 4px;
+			word-spacing: 5px;
+			text-align: center;
+			text-shadow: 5px 5px 3px #000000;
+		}
+		a {
+			text-decoration: none;
+		}
+		a:hover {
+			color: rgb(255, 153, 0);
+			font-weight: 600;
+			text-decoration: none;
+		}
+		img{
+			width:140px;
+			text-align: left;
+		}
+
+		.divResult {
+		}
+		.pnlM{
+				border: 1px solid #000000;
+				border-radius: 13px;
+				box-shadow: 5px 5px 5px #000000;;
+			}
+		.pnlH {
+			font-family: 'Expletus Sans', cursive;
+			font-size: 20px;
+			font-weight: 700;
+			background-color: rgb(121, 148, 194);
+			border-bottom: 2px solid #000000;
+			color: #000000;
+		}
+		.pnlB {
+			border-radius: 0px 0px 12px 12px;
+ 			font-family: 'Saira Condensed', sans-serif;
+			font-size: 16px; font-weight: 300;
+		}
+
+		.lodoDiv{
+		 float: left;
+		}
+		.userDiv{
+			margin-left: 150px;
+		}
+		.cell{
+			border: 1px solid red;
+		}
+
+		</style>
+
+	</head>
+	<body >
+
+		<div id="res"></div>
+
+		<div class="pgHd text-center">My twitch User</div>
+
+		<div id="divReturn"></div>
+
+
+	</body>
+</html>

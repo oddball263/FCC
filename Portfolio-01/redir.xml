@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<redir>
+
+	<!-- School Sites -->
+
+  <domain name="www.active770.com" siteType="2" siteId="123456" userId=""></domain>
+  <domain name="active770.com" siteType="2" siteId="123456" userId=""></domain>
+
+<domain name="www.qpms.ca" siteType="2" siteId="204213" userId=""></domain>
+<domain name="qpms.ca" siteType="2" siteId="204213" userId=""></domain>
+
+    <domain name="www.mmchawks.ca" siteType="2" siteId="204419" userId=""></domain>
+    <domain name="mmchawks.ca" siteType="2" siteId="204419" userId=""></domain>
+
+    <domain name="www.menihek.ca" siteType="2" siteId="204500" userId=""></domain>
+    <domain name="menihek.ca" siteType="2" siteId="204500" userId=""></domain>
+
+
+    <!-- Teacher Sites -->
+
+	<domain name="www.AEHSAOF.com" siteType="1" siteId="204536" userId="105034"></domain>
+	<domain name="AEHSAOF.com" siteType="1" siteId="204536" userId="105034"></domain>
+	<domain name="www.aehsaof.com" siteType="1" siteId="204536" userId="105034"></domain>
+	<domain name="aehsaof.com" siteType="1" siteId="204536" userId="105034"></domain>
+
+
+
+	<!--  <domain name="localhost" siteType="1" siteId="" userId="100501"></domain> -->
+
+</redir>

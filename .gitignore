@@ -2,6 +2,8 @@
 node_modules
 # doc
 # portfolio-01
+# .ipynb_checkpoints
+# .Rhistory
 npm-debug.log
 
 

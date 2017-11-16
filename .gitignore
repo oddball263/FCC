@@ -1,5 +1,7 @@
 # Node build artifacts
 node_modules
+doc
+portfolio-01
 npm-debug.log
 
 

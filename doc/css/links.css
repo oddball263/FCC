@@ -1,0 +1,50 @@
+@page { margin: 56.9pt }
+h1 {font-family: "DejaVu Sans",sans-serif ; font-size: 14px;
+    font-weight: 500; text-decoration: none; margin-bottom: 6px; padding-top: 12px;
+    border-top: 1pt solid #878c89;}
+
+
+h4 { font-family: "DejaVu Sans", sans-serif; font-weight: 500; font-size: 18px;
+    margin-top: 18px; margin-bottom: 18px;}
+
+.nav1lnk{font-family: "DejaVu Sans", sans-serif; font-size: 12px;
+    color: #ffffff; text-decoration: none;}
+.nav1{text-align: center; padding: 6px;}
+
+.head1{background-color: black; padding:1pt; text-align: center; }
+.nav2{font-family: "DejaVu Sans", sans-serif; font-size: 7px; padding:6px;
+     margin-bottom: 8px;}
+
+.menu-head {font-weight: bold; }
+
+
+li {font-family: "DejaVu Sans", sans-serif; font-style: normal;
+    font-size: 12px; margin-top: 2px;  list-style-type: normal; }
+li.l1 {color: #000000; margin-left: 0px; margin-top: 5px; list-style-type: none; }
+li.l11 {color: #000000; margin-left: 0px; margin-top: 7px;  list-style-type: none;  font-size: 13px;font-weight: 400; padding-top: 6px; border-top: 1pt solid #c8cbcf;}
+
+/* li.l2 doesn't have a link */
+li.l2 {color: #8f9393; margin-left: 22px; margin-bottom: 3px;  margin-top: 2px;  }
+
+/* li.l2_1 has a link */
+li.l2_1 {color: #000000; margin-left: 22px; margin-bottom: 3px;  margin-top: 2px;  }
+
+li.l3 {color: #07a459; margin-left: 28px; list-style-type: none; margin-bottom: 3px;  margin-top: 2px; }
+
+/*  li.l4  written in code font */
+li.l4 {color: #10578f; margin-left: 36px; font-family: Monaco; list-style-type: none; font-size: 11px; margin-bottom: 3px;  margin-top: 2px; }
+
+
+ul {margin-left: 2px; margin-top: 8px; margin-bottom: 8px; padding-left: 1em;
+    line-height: 1.1em;
+}
+
+a{font-family: "DejaVu Sans"; text-decoration: none}
+a:hover{background-color: #b8fc7c;}
+a.a1 {color: #000000; }
+a.a2 {color: #8f9393; }
+a.a2_1 {color: #000000; }
+a.a3 {color: #07a459; }
+a.a4 {color: #10578f; }
+
+body{background-color: #ffffff; }

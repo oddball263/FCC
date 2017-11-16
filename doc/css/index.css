@@ -1,0 +1,22 @@
+
+
+  body {background-color: #cccccc;
+  }
+  .p-M {
+    position: absolute;
+    left: 19px;
+    top: 18px;
+    width: 370px;
+    height: 900px;
+    border:solid black 1px;
+  }
+  .p-P {
+    position: absolute;
+    left: 400px;
+    top: 18px;
+    width: 1100px;
+    height: 900px;
+    background-color: #cdcdcd;
+    border:solid black 1px;
+
+  }

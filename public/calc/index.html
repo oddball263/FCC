@@ -17,18 +17,23 @@
 	1. add, subtract, multiply and divide two numbers.
 	2. clear the input field with a clear button.
 	3. keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.
-	 */
+
+	1. Track clicks of numbers, operators and equal to keep currentValue and past values and ops.
+	2. Past numbers and operators are in arrQ
+	3. On_equal: eval( Q entries and currentVal ).
+	*/
 
 	$(document).ready( function(){
 
 		// ------------ start calc .........................
-		var arrQ = [];
+		var arrQ = []; 				//keep ordered list of previous nums and Opers
 		var currVal = "";
-		var currAction = "";
-		var lastCmd = "";
+		var currOper = "";
+		var lastCmd = "";    //for decision making
 
 		// Number Button ...................
-		// always adds a number to end of blank or existn string
+		// 1. always adds a number to end of blank or existn currVal
+		// 2. Adds Oper to arrQ if it was the last click
 		$(".numBtn").click(function(){
 
 			if (lastCmd == "eq"){
@@ -36,9 +41,10 @@
 			}else{
 				currVal += $(this).text();
 			}
-			if (lastCmd == "action"){
-				arrQ.push(currAction);
-				currAction = "";
+
+			if (lastCmd == "Oper"){
+				arrQ.push(currOper);
+				currOper = "";
 			}
 			lastCmd = "num";
 			showRes();
@@ -46,40 +52,45 @@
 
 		});
 
-		// Action Button ...................
+		// Oper Button ...................
 		// 1. After a num...
-		$(".actionBtn").click(function(){
+		$(".operBtn").click(function(){
 
-			if(currVal != ""){
-				currAction = $(this).text();
-				arrQ.push(currVal);
+			if(currVal != ""){           //will never need unless currVal.
+				currOper = $(this).text();  //saves currVal
+				arrQ.push(currVal);         //starts a new currVal
 				currVal = "";
-				lastCmd = "action";
+				lastCmd = "Oper";
 				showQ();
 				$("#calcRes").effect( "bounce", {times:1}, 75);
+			}else if(lastCmd != "clear"){
+
 			}
 		});
 
 		// CE Button ...................
-		// erase either the currAction or last char of currVal
+		// erase either the currOper or last char of currVal
 		$("#cbtnCe").click(function(){
-
+			console.log(lastCmd);
 			if(lastCmd == "num"){
-				if(currVal.length > 1){
+				if(currVal.length > 1){   //if currVal - remove last digit.
 					currVal = currVal.substring(0,currVal.length-1);
 					showQ();
 					showRes();
 				}else{
 					currVal = "";
 					showQ();
+					showRes();
 				}
-			}else if(lastCmd == "action"){
-					lastCmd == "num";
-					currAction = "";
-					showQ();
-				}else {
-					reset();
-				}
+			}else if(lastCmd == "Oper"){
+				lastCmd = "num";     //basically - erase history of last oper click
+				currOper = "";
+				currVal = arrQ.pop();
+				showQ();
+				showRes();
+			}else {
+				reset();    // valid after equal or non-sense click.
+			}
 		});
 
 		// AC Button ...................
@@ -90,16 +101,20 @@
 
 		// Percent Button ...................
 		$("#cbtnPc").click(function(){
-			currVal = (parseFloat(currVal)/100).toString();
-			showQ();
-			showRes();
+			if(currVal.length > 0){
+				currVal = (parseFloat(currVal)/100).toString();
+				showQ();
+				showRes();
+			}
 		});
 
 		// Positive/Negative Button ...................
 		$("#cbtnPn").click(function(){
-			currVal = (0 - parseFloat(currVal)).toString();
-			showQ();
-			showRes();
+			if(currVal.length > 0){
+				currVal = (0 - parseFloat(currVal)).toString();
+				showQ();
+				showRes();
+			}
 		});
 
 
@@ -108,21 +123,21 @@
 
 			if(lastCmd == "num"){
 
-				arrQ.push(currVal);
+				arrQ.push(currVal);          // completes aarQ equation
 				//console.log(arrQ.join(","));
 
-				// should always have a number followed by an action
+				// should always have a number-Oper-num..., valid equation syntax
 				var tot = eval(arrQ.join(" "));
 
+				//truncate decimals for space
 				var dec =5;
-
 				tot = Number(Math.round(tot + 'e' + dec) + 'e-' + dec);
 
+				// so user can continue operations if desired
 				currVal = tot.toString();
 				arrQ = [];
-				currAction = "";
+				currOper = "";
 				lastCmd = "eq";
-
 				showQ();
 				showRes();
 			}
@@ -133,22 +148,24 @@
 		}
 		function showQ(){
 			if(arrQ.length>0){
-				$("#queue").html(arrQ.join(" ") + " " + currAction + " " + currVal);
+				$("#queue").html(arrQ.join(" ") + " " + currOper + " " + currVal);
 			}else{
-				$("#queue").html(currAction + " " + currVal);
+				$("#queue").html(currOper + " " + currVal);  // usually just cur val
 			}
 		}
+		//AC buton...
 		function reset(){
 			arrQ = [];
 			currVal = "";
-			currAction = "";
+			currOper = "";
 			showRes();
 			showQ();
 		}
-// ------------ end calc .........................
+    // ------------ end calc .........................
 
 
-		// move and show the calcBtns ......................
+		// NON-Calc functions - UI only............................
+		// Move and show the calcBtns ......................
 		$(function () {
 			var numBtns = [];
 
@@ -177,10 +194,10 @@
 			});
 
 			function showRest(t, i) 	{
-				$(t).css({border:"1px solid #ffffff"});
 				$(t).animate({height:"80px",width:"80px"}, i);
 
 				var intervalID = setTimeout(function(){
+					$(t).css("border-width","2px");
 					$(t).css("box-shadow", "5px 5px 10px rgb(5, 14, 15)");
 					$(t).css("color"," #ffffff");
 				}, i-100);
@@ -188,7 +205,8 @@
 		});
 
 
-		// change background image periodically ......................
+		// backgrounds ............................................
+		// FAde-in-out background images periodically
 		$(function () {
 
 			var images = ["daytona-moon.jpg","IMG-2843-01.jpg", "IMG-3992-03.jpg", "IMG-8095f.jpg", "img-2921-s1.jpg", "IMG-7698f-2.jpg","img-6469f.jpg"];
@@ -258,8 +276,9 @@
 		.numBtn {
 			height: 0px; width: 0px;
 			margin-left:1px; margin-right:1px;
+			border: 0px solid rgb(255, 255, 255);
 		}
-		.actionBtn {
+		.operBtn {
 			color: rgb(255, 255, 255);
 			border: 2px solid rgb(255, 255, 0);
 			margin-left:8px; margin-right:8px;
@@ -271,6 +290,7 @@
 		}
 		.clearBtn {
 			color: rgb(255, 255, 255);
+			font-size: 46px;
 			border: 2px solid rgb(252, 0, 0);
 			background-color: rgba(0, 12, 13, 0.5);
 			margin-left:8px; margin-right:8px;
@@ -305,7 +325,7 @@
 		a:hover{
 			color:rgb(0, 255, 0);
 			background-color: rgba(0, 12, 13, 0.8);
-			border: 2px solid rgb(255, 0, 252);
+			border: 2px solid rgb(0, 255, 0);
 			text-decoration:  none;
 		}
 		a:visited{
@@ -420,10 +440,10 @@
 
 		<div class="row">
 			<div class="col-xs-12 text-center rs">
-				<a class="calcBtn actionBtn">+</a>
-				<a class="calcBtn actionBtn">-</a>
-				<a class="calcBtn actionBtn mltply">*</a>
-				<a class="calcBtn actionBtn">/</a>
+				<a class="calcBtn operBtn">+</a>
+				<a class="calcBtn operBtn">-</a>
+				<a class="calcBtn operBtn mltply">*</a>
+				<a class="calcBtn operBtn">/</a>
 			</div>
 		</div>
 

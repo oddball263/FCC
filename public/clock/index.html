@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Pomadoro Timer</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Patrick+Hand|Sriracha" rel="stylesheet">
+
+		<script>
+			// Pomadoro Clock
+			// Functional example: https://codepen.io/freeCodeCamp/full/aNyxXR
+			// 1. User Story: I can start a 25 minute pomodoro, and the timer will go off once 25 minutes has elapsed.
+			// 2. User Story: I can reset the clock for my next pomodoro.
+			// 3. User Story: I can customize the length of each pomodoro. slider
+
+		$(document).ready(function( ){
+
+		// set-up vars..........
+		var timeRem = 0;
+		var min = 0;
+		var sec = 0;
+		var tmr = null;
+		$("#pause").hide();
+		$("#resume").hide();
+		displayTimer("0", "0");  // initial display
+
+		// button display..........
+		$("button").mouseover(function(){
+    	$(this).css("color", "rgb(30,255,10)");
+		});
+		$("button").mouseout(function(){
+    	$(this).css("color", "rgb(255,255,255)");
+		});
+		$("#custom-handle").mouseover(function(){
+    	$(this).css("color", "rgb(30,255,10)");
+		});
+		$("#custom-handle").mouseout(function(){
+    	$(this).css("color", "rgb(255,255,255)");
+		});
+
+
+
+		function runTimer(){
+
+			timeRem -= 500;
+
+			if(timeRem <= 0){
+				timerFin();
+				runAlarm();
+				return;
+			}
+
+			// use dat obj instead of counting down
+			var dt = new Date(timeRem);
+			min = dt.getMinutes();
+			sec = dt.getSeconds();
+
+			displayTimer(min, sec);
+
+		}
+
+		function displayTimer(min, sec){
+			(min < 10) ? min = "0" + min.toString() : "";
+			(sec < 10) ? sec = "0" + sec.toString() : "";
+			$("#timer").html(min + ":" + sec);
+
+			var width = Math.round(.033*timeRem/1000*2).toString();
+			$("#timeInd").css("width",width);
+			//console.log("width " + width);
+		}
+
+		function timerFin(){
+			if(tmr){
+				clearInterval(tmr);
+				tmr = null;
+				displayTimer("0", "0");
+				timeRem = 0;
+			}
+		}
+
+		function runAlarm(){
+			console.log("alarm done");
+			var alarm = document.getElementById("alarm");
+			alarm.play();
+			$("#timer").effect( "pulsate", 500 );
+			if(tmr){
+				timerFin();
+				$("#start").show();
+				$("#resume").hide();
+				$("#pause").hide();
+			}
+		}
+
+		// button actions ..........
+		$("#start").click(function(){
+			if(!tmr && timeRem > 0){
+				tmr = setInterval(runTimer, 500);
+				$("#start").hide();
+				$("#resume").hide();
+				$("#pause").show();
+			}
+		});
+
+		$("#pause").click(function(){
+			if(tmr){
+				clearInterval(tmr);
+				tmr = null;
+				$("#start").hide();
+				$("#pause").hide();
+				$("#resume").show();
+			}
+		});
+		$("#resume").click(function(){
+			if(!tmr){
+				tmr = setInterval(runTimer, 500);
+				$("#resume").hide();
+				$("#start").hide();
+				$("#pause").show();
+			}
+		});
+		$("#cancel").click(function(){
+			if(tmr){
+				timerFin();
+				$("#start").show();
+				$("#resume").hide();
+				$("#pause").hide();
+			}
+		});
+
+		//jQuery slider handler ..........
+		$( function() {
+			var handle = $( "#custom-handle" );
+			$( "#slider" ).slider({
+				create: function() {
+					handle.text( $( this ).slider( "value" ) );
+				},
+				slide: function( event, ui ) {
+					if(tmr){
+						clearInterval(tmr);
+						tmr = null;
+					}
+					var min = Math.round(ui.value*.6);
+					handle.text( min  );
+					timeRem = min * 60000;
+					displayTimer(min, "0");
+					$("#start").show();
+					$("#resume").hide();
+					$("#pause").hide();
+				}
+			});
+		} );
+
+		// make time scale lines ..........
+		var arrScale = [];
+		var s = 0;
+		while(s < 25){
+			arrScale.push("<div>|</div>")
+			s++
+		}
+		$("#scale").html(arrScale);
+
+
+	});
+		</script>
+
+
+		<style>
+		body{
+			background-image: url("img/img-3709-01.jpg");
+			color: #ffffff;
+	    background-color: #000000;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center;
+			background-size: cover;
+			margin:20px;
+		}
+		.container{
+			float:right;
+			margin: 20px;
+			width: 300px;
+		}
+		.main{
+			background-color: rgba(0, 0, 0, 0.5);
+			border: 2px solid #ffffff;
+			text-align: center;
+			color: #ffffff;
+			width: 300px;
+		}
+		.top{
+			padding: 5px 20px 10px 20px;
+			border-radius: 25px 25px 0px 0px;
+			height: 140px;
+		}
+		.timer{
+			font-family: 'Open Sans Condensed', sans-serif;
+			font-weight: 300;
+			font-size: 136px;
+			line-height: 118px;
+			padding: 16px 20px 10px 20px;
+			height: 164px;
+			margin-top: 12px;
+		}
+		.tBtn{
+			width: 144px;
+			font-family: 'Open Sans Condensed', sans-serif;
+			font-weight: 300;
+			font-size: 28px;
+			vertical-align: middle;
+			text-align: center;
+			height: 50px;
+			margin-top: 12px;
+		}
+		.btnLeft{
+			border-radius: 0px 0px 0px 25px;
+		}
+		.btnRight{
+			float:right;
+			border-radius: 0px 0px 25px 0px;
+		}
+		.head{
+			font-family: "Open Sans Condensed",sans-serif;
+			color: #ffffff;
+			font-size: 40px;
+			font-weight: 300;
+			border-bottom: 2px solid #ffffff;
+			border-radius: 20px 20px 0px 0px;
+		}
+		.slideBox{
+			padding: 12px;
+			border-radius: 15px;
+			margin-top: 15px;
+		}
+		.sld{
+			border-radius: 8px;
+			background-color: transparent;
+			height: 24px;
+			vertical-align: middle;
+		}
+		#custom-handle {
+			width: 28px;
+			height: 34px;
+			top: -8px;
+			margin-top: 3px;
+			font-family: sans-serif;
+			font-size: 18px;
+			text-align: center;
+			line-height: 30px;
+			vertical-align: : middle;
+			background-color: #000000;
+			border: 1px solid white;
+			border-radius: 4px 4px 4px 4px;
+			color: rgb(255, 255, 255);
+		}
+		#timeInd {
+			margin-top: 6px;
+			position:absolute;
+			z-index: 1;
+			width: 15%;
+			line-height: 16px;
+			height: 10px;
+			font-family: monospace;
+			font-size: 10px;
+			background-color: rgb(30, 255, 10);
+		}
+		#scale {
+    	width: 100%;
+			position:relative;
+			top:0px;
+			left:0px;
+			z-index: 2;
+			text-align: center;
+			vertical-align: middle;
+			display: -webkit-flex; /* Safari */
+			display: flex;
+			padding: 1px;
+		}
+		#scale div {
+	    -webkit-flex: 1;  /* Safari 6.1+ */
+	    -ms-flex: 1;  /* IE 10 */
+	    flex: 1;
+			color: #ffffff;
+			line-height: 18px;
+		}
+
+		</style>
+
+
+	</head>
+	<body>
+
+		<div class="container">
+
+			<div id="main" class="main top">
+				<div class="head">
+					Pomodoro Clock
+				</div>
+
+				<!-- slider .......... -->
+				<div id="slideBox" class="slideBox" >
+					<div id="slider" class="sld" style="border: 1px solid #ffffff;">
+						<div id="timeInd"></div>
+						<div id="scale"></div>
+						<div id="custom-handle" class="ui-slider-handle"></div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- time display .......... -->
+			<div id="timer" class="main timer"></div>
+
+			<!-- control buttons .......... -->
+			<div style="width:300px; ">
+
+				<div style="float:left; width:150px;">
+					<button type="button" id="start" class="main tBtn btnLeft">Start</button>
+					<button type="button" id="pause" class="main tBtn btnLeft">Pause</button>
+					<button type="button" id="resume" class="main tBtn btnLeft">Resume</button>
+				</div>
+
+				<div >
+					<button type="button" id="cancel" class="main tBtn btnRight">Cancel</button>
+				</div>
+
+			</div>
+
+			<div class="">
+				<audio id="alarm" style="display: none;" src="Blastwave_FX_FallProcessed_BWU.666.mp3" preload="true"></audio>
+			</div>
+
+		</div><!-- end  container .............. -->
+
+	</body>
+</html>

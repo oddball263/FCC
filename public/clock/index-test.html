@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Pomadoro Timer</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Kalam|Open+Sans+Condensed:300|Patrick+Hand|Sriracha" rel="stylesheet">
+
+		<script>
+			// Pomadoro Clock
+			// Functional example: https://codepen.io/freeCodeCamp/full/aNyxXR
+			// 1. User Story: I can start a 25 minute pomodoro, and the timer will go off once 25 minutes has elapsed.
+			// 2. User Story: I can reset the clock for my next pomodoro.
+			// 3. User Story: I can customize the length of each pomodoro. slider
+
+		$(document).ready(function( ){
+
+		var timeRem = 0;
+		var min = 0;
+		var sec = 0;
+		var tmr = null;
+		$("#pause").hide();
+		$("#resume").hide();
+		displayTimer("0", "0");
+
+		function runTimer(){
+
+			timeRem -= 500;
+
+			if(timeRem <= 0){
+				timerFin();
+				runAlarm();
+				return;
+			}
+
+			var dt = new Date(timeRem);
+			min = dt.getMinutes();
+			sec = dt.getSeconds();
+
+			displayTimer(min, sec);
+		}
+
+		function displayTimer(min, sec){
+			(min < 10) ? min = "0" + min.toString() : "";
+			(sec < 10) ? sec = "0" + sec.toString() : "";
+			$("#timer").html(min + ":" + sec);
+		}
+
+		function timerFin(){
+			if(tmr){
+				clearInterval(tmr);
+				tmr = null;
+				displayTimer("0", "0");
+				timeRem = 0;
+			}
+		}
+
+		function runAlarm(){
+			console.log("Alarm");
+		}
+
+		$("#start").click(function(){
+			if(!tmr && timeRem > 0){
+				tmr = setInterval(runTimer, 500);
+				$("#start").hide();
+				$("#resume").hide();
+				$("#pause").show();
+			}
+		});
+
+		$("#pause").click(function(){
+			if(tmr){
+				clearInterval(tmr);
+				tmr = null;
+				$("#start").hide();
+				$("#pause").hide();
+				$("#resume").show();
+			}
+		});
+		$("#resume").click(function(){
+			if(!tmr){
+				tmr = setInterval(runTimer, 500);
+				$("#resume").hide();
+				$("#start").hide();
+				$("#pause").show();
+			}
+		});
+
+		$("#cancel").click(function(){
+			if(tmr){
+				timerFin();
+				$("#start").show();
+				$("#resume").hide();
+				$("#pause").hide();
+			}
+		});
+
+
+		//jQuery slider ..................
+		$( function() {
+			var handle = $( "#custom-handle" );
+			$( "#slider" ).slider({
+				create: function() {
+					handle.text( $( this ).slider( "value" ) );
+				},
+				slide: function( event, ui ) {
+					var min = Math.round(ui.value*.6);
+					handle.text( min  );
+					timeRem = min * 60000;
+					displayTimer(min, "0")
+				}
+			});
+		} );
+
+		// make scale lines....
+		var arrScale = [];
+		var s = 0;
+		while(s < 45){
+			arrScale.push("<div>|</div>")
+			s++
+		}
+		$("#scale").html(arrScale);
+
+
+	});
+		</script>
+
+
+		<style>
+		body{
+			background-image: url("img/img-3709-01.jpg");
+			color: #ffffff;
+	    background-color: #000000;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center;
+			background-size: cover;
+			margin:20px;
+		}
+
+
+		#custom-handle {
+			width: 50px;
+			height: 34px;
+			top: -10px;
+			margin-top: 3px;
+			font-family: sans-serif;
+			font-size: 16px;
+			text-align: center;
+			line-height: 30px;
+			vertical-align: : middle;
+			background-color: #000000;
+			border-style: outset;
+			border-color:#5d6666;
+			border-width:3px;
+			color: rgb(255, 255, 255);
+		}
+
+		.slideBox{
+			width: 300px;
+			padding:8px 24px;
+			border-style:outset;
+			border-color:#5d6666;
+			border-width:2px;
+			background-color: rgb(51, 53, 54);
+			border-radius: 15px;
+		}
+
+		.main{
+			background-color: rgba(0, 0, 0, 0.4);
+			border: 2px solid #ffffff;
+			border-radius: 25px;
+			text-align: center;
+			padding: 10px;
+			height: 150px;
+			width: 350px;
+		}
+
+		.sld{
+			border-radius: 0%;
+			background-color: #000000;
+			height:28px;
+			border
+		}
+		#timeInd {
+			position:absolute;
+			z-index: 1;
+			width: 15%;
+			line-height: 20px;
+			height: 18px;
+			font-family: monospace;
+			font-size: 10px;
+			background-color: rgb(88, 59, 16);
+		}
+		/* w3school flex display css3 */
+		#scale {
+    	width: 100%;
+			position:relative;
+			top:0px;
+			left:0px;
+			z-index: 2;
+			text-align: center;
+			vertical-align: middle;
+			line-height: normal;
+			display: -webkit-flex; /* Safari */
+			display: flex;
+		}
+		#scale div {
+	    -webkit-flex: 1;  /* Safari 6.1+ */
+	    -ms-flex: 1;  /* IE 10 */
+	    flex: 1;
+			color: rgb(223, 153, 48);
+		}
+
+
+
+		.nums{
+			position:absolute;
+			z-index: 4;
+			font-family: 'Kalam', cursive;
+			font-size:150px;
+			line-: 120px;
+		}
+		</style>
+
+
+	</head>
+	<body>
+
+
+<div id="main" class="main">
+
+	<!-- slider .......... -->
+		<div id="slideBox" class="slideBox" >
+			<div id="slider" class="sld" style="border-style:inset; border-color:#5d6666; border-width:3px;text-align: justify;">
+				<div id="timeInd"></div>
+				<div id="scale"></div>
+				<div id="custom-handle" class="ui-slider-handle"></div>
+			</div>
+		</div>
+</div>
+
+
+	<!-- time display .......... -->
+
+<!-- end main container .............. -->
+
+
+
+
+		<div class="">
+			<button type="button" id="start">start</button> &nbsp; &nbsp; &nbsp;
+			<button type="button" id="cancel">cancel</button>
+		</div>
+
+		<div class="">
+			<button type="button" id="pause">pause</button> &nbsp; &nbsp; &nbsp;
+			<button type="button" id="resume">resume</button>
+		</div>
+
+
+
+	</body>
+</html>

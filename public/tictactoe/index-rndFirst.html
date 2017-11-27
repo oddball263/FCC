@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>tic tac toe</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+		<link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+
+		<script >
+
+		// https://codepen.io/FreeCodeCamp/full/KzXQgy/.
+		// 1. User Story: I can play a game of Tic Tac Toe with the computer.
+		// 2. User Story: My game will reset as soon as it's over so I can play again.
+		// 3. User Story: I can choose whether I want to play as X or O.
+
+		$(document).ready(function(){
+
+
+
+			function GameBoard(){
+
+				// bin values: X = -1, 0 = empty, 1 = O
+				// Upper left to lower right.
+				this.b0 = {id: "b0", val: 0};
+				this.b1 = {id: "b1", val: 0};
+				this.b2 = {id: "b2", val: 0};
+				this.b3 = {id: "b3", val: 0};
+				this.b4 = {id: "b4", val: 0};
+				this.b5 = {id: "b5", val: 0};
+				this.b6 = {id: "b6", val: 0};
+				this.b7 = {id: "b7", val: 0};
+				this.b8 = {id: "b8", val: 0};
+
+				this.sum = function(args){
+					var tot = 0;
+					args.forEach(function(bin){
+						tot += bin.val
+					});
+					return tot;
+				}
+
+				//returns an array of the group sums (8 groups)
+				//cols: groups 1,2,3,  rows: groups 4,5,6,  diag: groups 7,8
+				this.getTotals = function (){
+
+					var groups = [];
+
+					for(var i = 0; i<8; i++){
+						var tot = this.sum(this.getGroup(i));
+						groups.push(tot);
+						//console.log("group: " + i + ", tot: " + tot  );
+					}
+					return groups;
+				}
+
+				// bins collected into 3 cols, 3 rows, 2 diagonals
+				this.getGroup = function(i){
+					switch(i){
+						//cols - groups 1,2,3
+						case 0:
+							return [this.b0, this.b3, this.b6];
+						case 1:
+							return [this.b1, this.b4, this.b7];
+						case 2:
+							return [this.b2, this.b5, this.b8];
+						//rows - groups 4,5,6
+						case 3:
+							return [this.b0, this.b1, this.b2];
+						case 4:
+							return [this.b3, this.b4, this.b5];
+						case 5:
+							return [this.b6, this.b7, this.b8];
+						//dia - groups 7,8
+						case 6:
+							return [this.b0, this.b4, this.b8];
+						case 7:
+							return [this.b6, this.b4, this.b2];
+					}
+				}
+
+				// 1. Check corners for passed v.
+				// 2. Returns oposite corner
+				this.getOppCorner = function(v){
+					var corners = [this.b0.val, this.b2.val,
+												this.b6.val, this.b8.val];
+					var i = corners.indexOf(v);
+					switch(i){
+						case 0:
+							return "b8";
+						case 1:
+							return "b6";
+						case 2:
+							return "b2";
+						case 3:
+							return "b0";
+					}
+				}
+
+				this.getRndConn = function(){
+					var conns = [this.b1, this.b3, this.b5, this.b7];
+					return this.getRndOpen(conns);
+				}
+
+				this.getRndCorner = function(){
+					var corners = [this.b0, this.b2, this.b6, this.b8];
+					return this.getRndOpen(corners);
+				}
+
+				this.getRndMove = function(){
+					var bins = [this.b0, this.b1, this.b2,
+											this.b3, this.b4, this.b5,
+											this.b6, this.b7, this.b8];
+					return this.getRndOpen(bins);
+				}
+
+				this.getRndOpen = function(arr){
+
+					var openBins = arr.filter(function(bn){
+						return (bn.val == 0) ?  true : false;
+					});
+
+					if(openBins.length > 0){
+						var x = Math.floor(Math.random() * ((openBins.length - 1) - 0 + 1)) + 0;
+						return openBins[x].id;
+					}
+						return "";
+				}
+
+				this.hasOppCorners = function(tot){
+					if(this.sum([this.b0, this.b8]) == tot || this.sum([this.b6, this.b2]) == tot ){
+						return true;
+					}
+					return false;
+				}
+
+				// 1. Check for a forced move
+				// 2. Forced move: when 2 out of 3 connected bins belong to one player. Set remaining bin to win for "X" or block "O" from winning.
+				// 3. chkSum = 2 to block "0", -2 for win for "X"
+				// 4. Will return the bin id of a forced move or -1.
+				this.checkForce = function(chk){
+
+					var totals = this.getTotals();
+					var i = totals.indexOf(chk);
+
+					if(i != -1){   //need to put an X in a bin in this group
+
+						var group = board.getGroup(i);   // get group and return empty bin
+						for(var j=0; j<group.length; j++){
+							if(group[j].val == 0){                //put x here
+								return group[j].id;
+							}
+						}
+					}else{
+						return -1;
+					}
+				}
+
+			};
+
+
+			// run the program ....................................................
+			var xGoesFirst = false;
+			var oCanGo = false;
+			var xFirstMove = true;
+			var xSecondMove = true;
+			var moves = 0;
+			$("#reset").hide();
+			$("#start").show();
+			$("#gameOver").hide();
+			var board = null;
+
+			$("#reset").click(function(){
+					resetGame();
+			});
+			$("#startAgain").click(function(){
+					resetGame();
+			});
+
+			function resetGame(){
+				$("#chal").css("background-color","rgb(0, 0, 0)");
+				$("#comp").css("background-color","rgb(0, 0, 0)");
+				 xGoesFirst = false;
+				 oCanGo = false;
+				 xFirstMove = true;
+				 xSecondMove = true;
+				$("#reset").hide();
+				$("#start").show();
+				 board = new GameBoard();
+				$(".imgb").attr("src", "img/w.png");
+				$("#gameOver").hide();
+			}
+
+
+			$("#start").click(function(){
+
+				$("#chal").css("background-color","rgb(9, 190, 0)");
+				$("#chal").effect( "pulsate", 1000 );
+				$("#comp").css("background-color","rgb(255, 200, 4)");
+				$("#comp").effect( "pulsate", 1000, pickStarter );
+
+			});
+
+			function pickStarter(){
+
+				var rnd = Math.floor(Math.random() * ((9 - 1) - 1 + 1)) + 0;
+					console.log(rnd);
+
+					if(rnd % 2 == 0){
+						xGoesFirst = true;
+					}else{
+						xGoesFirst = false;
+					}
+					console.log("1. xGoesFirst" + xGoesFirst);
+
+					$("#reset").show();
+					$("#start").hide();
+					board = new GameBoard();
+
+					console.log("2. xGoesFirst" + xGoesFirst);
+
+					if(xGoesFirst){
+						$("#chal").css("background-color","rgb(0, 0, 0)");
+						moveX();
+						oCanGo = true;
+					}else{
+						$("#comp").css("background-color","rgb(0, 0, 0)");
+						oCanGo = true;
+					}
+			}
+
+
+			$( ".bin" ).click(function() {
+				// "O" makes a move
+				// 1. Update the bin view and board bins
+				// 2. Make the "X move"
+
+				if(oCanGo){
+					var id = $(this).attr("id");
+
+					if(board[id].val == 0){  // if not, mistake click - do nothing
+
+						// This is "O" move.....
+						// 1. Set text to "O" and img src to "o.png"
+						// 2. Set board bin to 1 to indicate taken by "0"
+						$("#img" + id).attr("src", "img/o.png");
+						board[id].val = 1;
+
+						// Make X move
+						var wId = board.checkForce(3);   	// 1. Check for winning move for o
+						if(wId != -1){
+							$("#gameOver").show().css("background-color","rgba(13, 255, 0, 0.7)");
+							$("#msg").html("O Wins!!")
+							oCanGo = false;
+						}else{
+							moveX();
+						}
+					}
+				}
+	  	});
+
+
+			// Make "X" move
+			function moveX(){
+				if(xFirstMove){						// 1st "X" move
+					firstMove();
+				}else if(xSecondMove){		// 2nd "X" move
+					secondMove();
+				}else {       						// 3rd or more "X" move ..
+					thirdMove();
+				}
+			}
+
+			function firstMove(){
+
+				xFirstMove = false;
+				if(xGoesFirst){
+					xMove(board.getRndCorner());   // allways take a corner if going first
+
+				}else{
+					// 1. If "O" does NOT take enter: take center
+					// 2. Else: take a corner
+					if(board.b4.val != 1){
+						xMove("b4");
+					}else{
+						xMove(board.getRndCorner());
+					}
+				}
+			}
+
+			function secondMove(){
+
+				xSecondMove = false;
+				if(xGoesFirst){											// x has a corner from first move
+					if(board.b4.val == 0){    				// take middle if possible
+						xMove(board.getRndCorner());
+					}else{
+						xMove(board.getRndCorner());
+					}
+
+				}else{
+					// 1. Check for force
+					// // 2. if "O" hasOppositeCorners: take connector
+					// 3. Else: take corner.
+					var fId = board.checkForce(2);
+					if(fId != -1){
+						xMove(fId);
+
+					}else {
+						if(board.hasOppCorners(2)){
+							xMove(board.getRndConn());
+						}else{
+							xMove(board.getRndCorner());
+						}
+					}
+				}
+			}
+
+			function thirdMove(){							// these will all be forced, or random
+
+				var wId = board.checkForce(-2);   	// 1. Check for winning move for x
+				if(wId != -1){
+					xMove(wId);
+					gameOver("X");
+
+				}else{
+					var fId = board.checkForce(2);			// check to block  "0"
+					if(fId != -1){
+						xMove(fId);
+
+					}else {
+						if(board.b4.val == 0){    				// take another corner - "X" wins
+							xMove(board.getRndCorner());
+
+						}else{
+              // move randomly
+							xMove(board.getRndMove());
+						}
+					}
+				}
+			}
+
+			// 1. Set text to "X" and img src to "x.png"
+			// 2. Set board bin to -1 to indicate taken by "X"
+			function xMove(id){
+				$("#img" + id).attr("src", "img/x.png");
+				board[id].val = -1;
+			}
+
+			function gameOver(p){
+				$("#gameOver").show().css("background-color","rgba(255, 214, 0, 0.7)");
+				$("#msg").html(p + " Wins!!")
+				oCanGo = false;
+			}
+
+		});
+
+
+		</script>
+
+
+	<style >
+
+			html {
+				font-size: 2vw;
+			}
+
+
+		body{
+			background-image: url("img/img-8101ff.jpg");
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			background-attachment: fixed;
+			background-color: rgb(19, 232, 72);
+		}
+
+		.center {
+			width: 34%;
+			margin: 3% auto;
+		}
+		.title{
+			width: 92%;
+			position: relative;
+			top:0; left:0;
+			color: #ffffff;
+			font-family: "Space Mono", monospace;
+			font-size: 4vw;
+			font-weight: 700;
+			text-align: center;
+			line-height: 4vw;
+			text-shadow: 5px 5px 5px rgba(0,0,0, 0.8);
+			height:10%;
+		}
+		.gameOver{
+			position: fixed;
+			top: 16vw;
+			width: 100%;
+			padding: 4%;
+			color: #000000;
+			font-family: "Space Mono", monospace;
+			font-size: 9vw;
+			line-height: 4vw;
+			font-weight: bold;
+			text-align: center;
+			text-shadow: 8px 8px 10px rgba(0,0,0, 0.5);
+			margin: auto;
+			z-index: 1000;
+		}
+
+		.bin {
+			width:29%;
+			float:left;
+			padding-bottom: 29%;
+			position: relative;
+			box-shadow: 1em 1em 1.25em rgba(0,0,0, 0.8);
+			margin: 1%;
+			text-align: center;
+		}
+		div.bin > img {
+			position: absolute;
+			top: 0; left: 0;
+			width:100%;
+		}
+
+		.con1{
+			width: 31%;
+			float: left;
+			padding-bottom: 1%;
+			position: relative;
+			border: 1px solid #000000;
+			background-color: #000000;
+		}
+		div.con1 > div {
+			position: absolute;
+			top: 0; left: 0;
+		}
+		.con2{
+			width: 31%;
+			float: left;
+			padding-bottom: 8%;
+			position: relative;
+			border: 1px solid #000000;
+			background-color: #000000;
+		}
+		div.con2 > img {
+			position: absolute;
+			top:0; left: 38%;
+			width: 20%;
+			margin: .5vw;
+		}
+		div.con2 > button {
+			position: absolute;
+			font-size: 1vw;
+			top:0; left: 8%;
+			width: 80%;
+		}
+		.ind{
+			color: #ffffff;
+			font-family: "Space Mono", monospace;
+			font-size: 1.2vw;
+			text-align: center;
+		}
+
+	</style>
+
+	</head>
+	<body>
+				<div id="gameOver" class="gameOver"> <div id="msg"></div><br />
+					<button type="button" id="startAgain" class="btn btn-sm btn-primary">Play Again</button>
+				</div>
+
+		<div class="center">
+			<div>
+					<div class="title">Tic-Tac-Toe</div>
+			</div>
+
+			<div >
+					<div class="bin" id="b0"><img id="imgb0" src="img/w.png" class="imgb" /></div>
+					<div class="bin" id="b1"><img id="imgb1" src="img/w.png" class="imgb"/></div>
+					<div class="bin" id="b2"><img id="imgb2" src="img/w.png" class="imgb"/></div>
+			</div>
+			<div >
+					<div class="bin" id="b3"><img id="imgb3" src="img/w.png" class="imgb"/></div>
+					<div class="bin" id="b4"><img id="imgb4" src="img/w.png" class="imgb"/></div>
+					<div class="bin" id="b5"><img id="imgb5" src="img/w.png" class="imgb"/></div>
+			</div>
+			<div >
+					<div class="bin" id="b6"><img id="imgb6" src="img/w.png" class="imgb"/></div>
+					<div class="bin" id="b7"><img id="imgb7" src="img/w.png" class="imgb"/></div>
+					<div class="bin" id="b8"><img id="imgb8" src="img/w.png" class="imgb"/></div>
+			</div>
+	</div>
+
+	<!-- ...... end  board .......... -->
+
+	<div class="center" >
+		<div >
+				<div id="chal" class="con1 ind">Challenger</div>
+				<div class="con1 ind ">&nbsp;</div>
+				<div id="comp" class="con1 ind">Computer</div>
+		</div>
+
+		<div >
+			<div class="con2 ind"><img src="img/o.png" class="icon" /></div>
+			<div class="con2 ind">
+				<button type="button" id="start" class="btn btn-md btn-success" >New Game</button>
+				<button type="button" id="reset" class="btn btn-md btn-warning">Reset</button>
+			</div>
+			<div class="con2 ind"><img src="img/x.png" class="icon" /></div>
+		</div>
+	</div>
+
+
+	</body>
+</html>

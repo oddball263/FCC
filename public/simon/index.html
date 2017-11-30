@@ -36,22 +36,7 @@
 			// https://s3.amazonaws.com/freecodecamp/simonSound3.mp3,
 			// https://s3.amazonaws.com/freecodecamp/simonSound4.mp3.
 
-		//1. Have an array to hold simons moves.
-		//2. Use a rnd fuction to get his new move.
-		//3. play back his updated array
-			//a. light the circle
-			//b. play the noise
-			//c. Add the id to arrSimon
-			//d. alert to watch and listen
-			//e. count out moves
 
-		//1. When done - Users return
-		//2. alert to mimic
-		//3. On each tone...
-			//a. light touched circles
-			//b. play each circle
-			//c. check circle is correc compared to simons
-			//d. count out moves
 
 		$(document).ready(function(){
 
@@ -304,7 +289,7 @@
 				margin-top: 2.5% auto;
 				font-family: 'Fira Sans',sans-serif;
 				font-weight: 200;
-				font-size: 2.5vw;
+				font-size: 2.25vw;
 				text-align: center;
 				padding: 10px;
 				color: #ffffff;
@@ -320,6 +305,13 @@
 				font-family: 'Fira Sans',sans-serif;
 				font-size: 3vw;
 				font-weight: 600;
+				line-height: 3.1vw
+			}
+			.step{
+				margin-top:8px;
+				font-size: 3vw;
+				font-weight: 600;
+				line-height: 3.1vw
 			}
 			.mode{
 				display: inline-block;
@@ -328,22 +320,23 @@
 				font-family: 'Fira Sans',sans-serif;
 				font-size: 3vw;
 				font-weight: 600;
+				line-height: 3.1vw
 			}
 			.modeBtn{
-				font-size: 4vw;
+				font-size: 2.5vw;
 				font-weight: 600;
 			}
 			.txt{
 				color: white;
 				font-family: 'Fira Sans',sans-serif;
-				font-size: 1.25vw;
+				font-size: 1vw;
 				font-weight: 300;
 			}
 			.credit{
 				margin-top:50px;
 				color:#aaaaaa;
 				font-family: 'Fira Sans',sans-serif;
-				font-size: 1.1vw;
+				font-size: .75vw;
 				font-weight: 300;
 			}
 
@@ -368,22 +361,22 @@
 				<div id="msgP" class="msg" style="z-index:20;"></div>
 			</div>
 
-			<div class="" style="width:100%; vertical-align:top;">
+			<div class="" >
 
 				<div class="steps">
-					<div>Step</div>
+					Step
 					<div id="step" class="step"></div>
 					<div class="txt">20 Steps and you Win! </div>
 				</div>
 
 				<div class="mode">
-					<div>Mode</div>
-					<div>
-						<span class="txt">Normal</span>
-							<span ><i id="mode" class="fa fa-toggle-off" aria-hidden="true"></i></span>
-							<span class="txt">Strict</span>
+					Mode
+					<div id="step" class="step" style="">
+						<span class="txt" style="vertical-align: middle;">Normal&nbsp;&nbsp;</span>
+							<span><i id="mode" class="fa modeBtn fa-toggle-off switch" aria-hidden="true"></i></span>
+							 <span class="txt" style="vertical-align: middle;">&nbsp;&nbsp;Strict</span>
 					</div>
-					<div class="txt">Strict: loose with 1 mistake.</div>
+					<div class="txt">Strict: Lose with 1 mistake.</div>
 				</div>
 
 			</div>

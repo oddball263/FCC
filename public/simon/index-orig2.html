@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>repeat the series</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Fira+Sans:200,300" rel="stylesheet">
+
+
+		<script >
+
+		// Similar to: https://codepen.io/Em-Ant/full/QbRyqq/
+		// User Story: I am presented with a random series of button presses.
+		// User Story: Each time I input a series of button presses correctly,
+			// I see the same series of button presses but with an additional step.
+		// User Story: I hear a sound that corresponds to each button both when the series of button presses plays, and when I personally press a button.
+		// User Story: If I press the wrong button,
+			// 	I am notified that I have done so, and that series of button presses starts again to remind me of the pattern so I can try again.
+		// User Story: I can see how many steps are in the current series of button presses.
+		// User Story: If I want to restart, I can hit a button to do so, and the game will return to a single step.
+		// User Story: I can play in strict mode where if I get a button press wrong, it notifies me that I have done so, and the game restarts at a new random series of button presses.
+		// User Story: I can win the game by getting a series of 20 steps correct.
+			// I am notified of my victory, then the game starts over.
+			//
+			// Hint: Here are mp3s you can use for each button:
+			// https://s3.amazonaws.com/freecodecamp/simonSound1.mp3,
+			// https://s3.amazonaws.com/freecodecamp/simonSound2.mp3,
+			// https://s3.amazonaws.com/freecodecamp/simonSound3.mp3,
+			// https://s3.amazonaws.com/freecodecamp/simonSound4.mp3.
+
+		//1. Have an array to hold simons moves.
+		//2. Use a rnd fuction to get his new move.
+		//3. play back his updated array
+			//a. light the circle
+			//b. play the noise
+			//c. Add the id to arrSimon
+			//d. alert to watch and listen
+			//e. count out moves
+
+		//1. When done - Users return
+		//2. alert to mimic
+		//3. On each tone...
+			//a. light touched circles
+			//b. play each circle
+			//c. check circle is correc compared to simons
+			//d. count out moves
+
+		$(document).ready(function(){
+
+			var arrSimon = [];
+			var arrUsr = [];
+			var step = 0;  				//game step counter
+			var indx = 0;  				//arrSimon and arrBkgd index
+			var playerCanGo = false;
+			var winStep = 0;    // number to get a win
+			var arrCirc = [0,1,2,3];
+			var arrBkgdLt = ["rgb(252, 4, 56)","rgb(0, 148, 255)","rgb(254, 251, 0)","rgb(0, 255, 56)"];
+			// var arrBkgdDk = ["rgb(101, 2, 23)","rgb(1, 69, 116)","rgb(102, 101, 2)","rgb(1, 82, 18)"];
+			var arrBkgdDk = ["rgba(0, 0, 0, 0.5)","rgba(0, 0, 0, 0.5)","rgba(0, 0, 0, 0.5)","rgba(0, 0, 0, 0.5)"];
+			var tmr = null;
+
+			$(".circle").mouseover(function(){
+				var id = $(this).attr("id");
+				$(this).css("background-color", arrBkgdLt[id]);
+			});
+			$(".circle").mouseout(function(){
+				var id = $(this).attr("id");
+				$(this).css("background-color", arrBkgdDk[id]);
+			});
+
+
+			setNewGame();
+
+			function setNewGame(){
+				arrSimon = [];
+				arrUsr = [];
+				step = 0;  				//game step counter
+				indx = 0;  				//arrSimon and arrBkgd index
+				playerCanGo = false;
+				$("#start").show();
+				$("#reset").hide();
+				$("#step").html("0");
+				message("player","Start a New Game?");
+				winStep = 3;    // number to get a win
+			}
+
+			$("#reset").click(function(){
+				setNewGame();
+			});
+
+			$("#start").click(function(){
+				simonTurn();
+				$("#start").hide();
+				$("#reset").show();
+			});
+
+			function shuffleCircles(arr){
+				//Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+				var len = arr.length;
+				var arrNew = [];
+
+				for(var i=0; i<len; i++){
+					var x = Math.floor(Math.random() * (len));
+					arrNew.push(arr.splice(x,1)[0]);
+					console.log(arrNew);
+				}
+
+				for(var i=0; i<arrNew.length; i++){
+					$("#" + i.toString()).css("left", arrLeft[arrNew[i]]);
+				}
+			}
+
+
+			// 1. Will call simonTurnOn() function every secondMove
+			// 2. SimonTurnOn will play lights and play simonSound
+			// 3. Will then wait 500 and turn off light.
+			function simonTurn(){
+
+				message("simon","Watch and Listen");
+
+				// 1. Adds new color/light to arrSimon
+				var rnd = Math.floor(Math.random() * (arrCirc.length));
+				arrSimon.push(rnd);
+
+				// 2. Plays each color/light in arrSimon in order at set interval
+				// Displays stepber countdown
+				step = arrSimon.length;
+				indx = 0;
+				$("#step").html(step);
+				tmr = setInterval(simonTurnOn, 1000);
+			}
+
+			function simonTurnOn(){
+
+				if(step > 0){
+
+					$("#" + arrSimon[indx]).css("background-color", arrBkgdLt[arrSimon[indx]]);
+					var snd = document.getElementById("snd" + arrSimon[indx]);
+					snd.play();
+
+					var tmOut = setTimeout(simonTurnOff,500);
+				}else{
+					clearInterval(tmr);
+					playerCanGo = true;
+					playerTurn();      // shift control to player
+				}
+			}
+
+			function simonTurnOff(){
+				$("#" + arrSimon[indx]).css("background-color", arrBkgdDk[arrSimon[indx]]);
+				step -=1;
+				indx +=1;
+				$("#step").html(step);
+			}
+
+			function playerTurn(){
+				step = arrSimon.length;
+				indx = 0;
+				$("#step").html(step);
+				playerCanGo = true;
+				message("player","Repeat the Sequence");
+			}
+
+			$(".circle").click(function(){
+
+				if(playerCanGo){
+					var circId = $(this).attr("id");
+					$("#" + circId).css("background-color", arrBkgdLt[circId]);
+					var snd = document.getElementById("snd" + circId);
+					snd.play();
+
+					if(circId != arrSimon[indx]){
+						var sndLose = document.getElementById("lose");
+						sndLose.play();
+						gameOver("Sorry, Try Again?");
+
+					}else{
+						// check win...
+						if(indx == winStep){
+							var sndWin = document.getElementById("win");
+							sndWin.play();
+							gameOver("You Win!!");
+						}else{
+							indx +=1;
+							step -=1;
+							$("#step").html(step);
+							if(step == 0){
+								var t = setTimeout(simonTurn,1000);   // continue to simons next turn...
+							}
+						}
+					}
+
+				}
+			});
+
+			function message(name, msg){
+				if(name == "simon"){
+					$("#msgS").html(msg);
+					$("#msgS").slideDown(1000);
+					$("#msgP").slideUp(1000);
+				}else{
+					$("#msgP").html(msg);
+					$("#msgP").slideDown(1000);
+					$("#msgU").slideUp(1000);
+				}
+			}
+
+			function gameOver(result){
+				message("simon",result);
+				setNewGame();
+			}
+
+
+		});
+		</script>
+
+
+		<style media="screen">
+			body{
+				background-image: url("img/bkgd-blur-03.jpg");
+				background-size: 100%;
+				background-attachment: fixed;
+				background-repeat: repeat-y;
+			}
+			.circles{
+				margin: 10% auto;
+				width: 40%;
+				left: 30%;
+				border: 1px solid #ffffff;
+				height: 3%;
+			}
+			.circle{
+				float: left;
+				display: inline-block;
+				width: 4%;
+				height: 4%;
+				border: 2px solid #ffffff;
+				border-radius: 50%;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+			.c0{
+				left:30.25%;
+			}
+			.c1{
+				left:40.5%;
+			}
+			.c2{
+				left:50.75%;
+			}
+			.c3{
+				left:61%;
+			}
+			.btns{
+				width: 40%;
+				margin: 120px auto;
+			}
+			.step{
+				border: 1px solid red;
+				padding: 10px;
+				background-color: #000000;
+				color:white;
+			}
+			.board{
+				position:relative;
+				width: 40%;
+				margin: 120px auto;
+				border: 1px solid white;
+				height: 3%;
+			}
+			.msg{
+				position:relative;
+				width: 40%;
+				left: 28%;
+				margin: 10% auto;
+				font-family: 'Fira Sans',sans-serif;
+				font-size: 3vw;
+				text-align: center;
+				padding: 10px;
+				color: #ffffff;
+			}
+			.board{
+
+			}
+
+		</style>
+
+	</head>
+	<body>
+
+		<div class="container-fluid">
+
+
+		<div class="row circles">
+			<div id="0" class="col-md-1 circle">&nbsp;</div>
+			<div id="1" class="col-md-1 circle">&nbsp;</div>
+			<div id="2" class="col-md-1 circle">&nbsp;</div>
+			<div id="3" class="col-md-1 circle">&nbsp;</div>
+		</div>
+
+<div class="board">
+hhh
+
+	<div id="msgS" class="msg"></div>
+	<div id="msgP" class="msg"></div>
+	</div>
+
+
+		<div class="btns">
+			<button type="button" id="start" class="btn btn-md btn-success">Start</button>
+			<button type="button" id="reset" class="btn btn-md btn-danger">Reset</button>
+			<div id="step" class="step"></div>
+		</div>
+
+		<div>
+			<audio id="snd0" style="display: none;" src="snd/simonSound1.mp3" preload="true"></audio>
+			<audio id="snd1" style="display: none;" src="snd/simonSound2.mp3" preload="true"></audio>
+			<audio id="snd2" style="display: none;" src="snd/simonSound3.mp3" preload="true"></audio>
+			<audio id="snd3" style="display: none;" src="snd/simonSound4.mp3" preload="true"></audio>
+			<audio id="lose" style="display: none;" src="snd/zapsplat_multimedia_game_lose_negative_005.mp3" preload="true"></audio>
+			<audio id="win" style="display: none;" src="snd/little_robot_sound_factory_Jingle_Win_00.mp3" preload="true"></audio>
+		</div>
+		<div class="credit">
+			Some sound effects obtained from <a href="https://www.zapsplat.com">https://www.zapsplat.com</a>
+		</div>
+
+
+			</div>
+		</body>
+</html>

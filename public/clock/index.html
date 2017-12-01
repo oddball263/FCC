@@ -28,6 +28,7 @@
 		var tmr = null;
 		$("#pause").hide();
 		$("#resume").hide();
+
 		displayTimer("0", "0");  // initial display
 
 		// button display..........
@@ -45,45 +46,48 @@
 		});
 
 
-
 		function runTimer(){
 
+			//count down timeer
 			timeRem -= 500;
-
 			if(timeRem <= 0){
 				timerFin();
 				runAlarm();
 				return;
 			}
 
-			// use dat obj instead of counting down
+			// Use timeRemaining to get new date obj
+			// timeRemaining converts to minutes and seconds
 			var dt = new Date(timeRem);
 			min = dt.getMinutes();
 			sec = dt.getSeconds();
 
 			displayTimer(min, sec);
-
 		}
 
+		//Dispay current settings
 		function displayTimer(min, sec){
 			(min < 10) ? min = "0" + min.toString() : "";
 			(sec < 10) ? sec = "0" + sec.toString() : "";
 			$("#timer").html(min + ":" + sec);
 
+			//Shrink timer color bar
 			var width = Math.round(.033*timeRem/1000*2).toString();
 			$("#timeInd").css("width",width);
 			//console.log("width " + width);
 		}
 
+		// Finalize /clear timer, slider and vars
 		function timerFin(){
-			if(tmr){
 				clearInterval(tmr);
 				tmr = null;
-				displayTimer("0", "0");
 				timeRem = 0;
-			}
+				$( "#slider" ).slider({value: 0});
+				$( "#custom-handle" ).text("0");
+				displayTimer("0", "0");
 		}
 
+		//Play Alarm when down to zero
 		function runAlarm(){
 			//console.log("alarm done");
 			var alarm = document.getElementById("alarm");
@@ -100,38 +104,37 @@
 		// button actions ..........
 		$("#start").click(function(){
 			if(!tmr && timeRem > 0){
-				tmr = setInterval(runTimer, 500);
+				tmr = setInterval(runTimer, 500);  //run the timer, update every .5 sec.
 				$("#start").hide();
 				$("#resume").hide();
-				$("#pause").show();
-			}
-		});
-
-		$("#pause").click(function(){
-			if(tmr){
-				clearInterval(tmr);
-				tmr = null;
-				$("#start").hide();
-				$("#pause").hide();
-				$("#resume").show();
-			}
-		});
-		$("#resume").click(function(){
-			if(!tmr){
-				tmr = setInterval(runTimer, 500);
-				$("#resume").hide();
-				$("#start").hide();
 				$("#pause").show();
 			}
 		});
 		$("#cancel").click(function(){
-			if(tmr){
 				timerFin();
 				$("#start").show();
 				$("#resume").hide();
 				$("#pause").hide();
-			}
 		});
+
+		//Just stops timer, keeps timeRem value
+		$("#pause").click(function(){
+				clearInterval(tmr);
+				$("#start").hide();
+				$("#pause").hide();
+				$("#resume").show();
+		});
+
+		// Starts timer again with last timeRem value
+		// countdown will cintinue where it left off.
+		$("#resume").click(function(){
+				tmr = setInterval(runTimer, 500);
+				$("#resume").hide();
+				$("#start").hide();
+				$("#pause").show();
+
+		});
+
 
 		//jQuery slider handler ..........
 		$( function() {

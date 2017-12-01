@@ -21,8 +21,6 @@
 
 		$(document).ready(function(){
 
-
-
 			function GameBoard(){
 
 				// bin values: Computer = -1, 0 = empty, Challenger = O
@@ -199,6 +197,10 @@
 				$("#chaX").css("left","40%");
 				$("input").removeAttr("disabled");
 				$("#chaO").css("left","54%");
+				$("#chaO").show();
+				$("#chaX").show();
+				$("#chalImg").attr("src","img/clear.png");
+				$("#compImg").attr("src","img/clear.png");
 				moves = 0;
 			}
 
@@ -218,16 +220,20 @@
 				cmpGoesFirst = false;
 				cmpIcon = "img/o.png";
 				chaIcon = "img/x.png";
-				$("#chaX").css("left","10%");
-				$("#chaO").css("left","74%");
+				$("#chalImg").attr("src","img/x.png");
+				$("#compImg").attr("src","img/o.png");
+				$("#chaO").hide();
+				$("#chaX").hide();
 				startGame();
 			});
 			$("#chaO").click(function(){
 				cmpGoesFirst = true;
 				cmpIcon = "img/x.png";
 				chaIcon = "img/o.png";
-				$("#chaO").css("left","10%");
-				$("#chaX").css("left","74%");
+				$("#compImg").attr("src","img/x.png");
+				$("#chalImg").attr("src","img/o.png");
+				$("#chaO").hide();
+				$("#chaX").hide();
 				startGame();
 			});
 
@@ -442,57 +448,35 @@
 			top: 0; left: 0;
 			width:100%;
 		}
-		.con1{
-			width: 31%;
-			float: left;
-			padding-bottom: 1%;
-			position: relative;
-			border: 1px solid #000000;
-			background-color: #000000;
-		}
-		div.con1 > div {
-			position: absolute;
-			top: 0; left: 0;
-		}
-		.con2{
-			width: 93%;
-			float: left;
-			padding-bottom: 8%;
-			position: relative;
-			border: 1px solid #000000;
-			background-color: #000000;
-		}
-		div.con2 > input {
-			position: absolute;
-			top:0;
-			width: 4%;
-			margin: .5vw;
-		}
-		div.con2 > button {
-			position: absolute;
-			font-size: 1vw;
-			top:0; left: 35%;
-			width: 22%;
-		}
+
 		.ind{
 			color: #ffffff;
 			font-family: "Space Mono", monospace;
 			font-size: 1vw;
 			text-align: center;
+			background-color:#000000;
 		}
 		.ind2{
 			color: rgb(19, 232, 72);
 			font-family: "Space Mono", monospace;
 			font-size: 1vw;
 			text-align: center;
+			background-color:#000000;
 		}
-		.iconx{
-			left: 40%;
+		.icon{
+			width: 2vw;
+			height: 2vw;
+			margin: .5vw .5vw .5vw .5vw;
 		}
-		.icono{
-			left: 54%;
+		.bin2{
+			width:29%;
+			float:left;
+			padding-bottom: 2%;
+			position: relative;
+			margin: 1%;
+			text-align: center;
+			background-color:#000000;
 		}
-
 	</style>
 
 	</head>
@@ -527,23 +511,26 @@
 
 	<!-- ...... end  board .......... -->
 
-	<div class="center" >
+	<div class="center">
 		<div >
-				<div id="chal" class="con1 ind">Challenger</div>
-				<div class="con1 ind ">
-					<span id="select" class="ind2">Select X or O</span>&nbsp;
+				<div class="bin2"  >
+					<div id="chal" class="ind">Challenger</div>
+					<img id="chalImg" class="icon" src="img/clear.png"  />
 				</div>
-				<div id="comp" class="con1 ind">Computer</div>
+
+				<div class="bin2" >
+					<div class="ind2" >Select X or O</div>
+					<input type="image" id="chaX" src="img/x.png" class="icon"></input>
+					<input type="image" id="chaO" src="img/o.png" class="icon"></input>
+					<button type="button" id="reset" class="btn btn-md btn-warning">Reset</button>
+				</div>
+
+				<div class="bin2" >
+					<div id="comp" class="ind">Computer</div>
+					<img id="compImg" class="icon" src="img/clear.png"  />
+				</div>
 		</div>
 
-		<div >
-			<div class="con2 ind">
-				<input type="image" id="chaX" src="img/x.png" class="iconx"></input>
-				<input type="image" id="chaO" src="img/o.png" class="icono"></input>
-
-				<button type="button" id="reset" class="btn btn-md btn-warning">Reset</button>
-			</div>
-		</div>
 	</div>
 
 

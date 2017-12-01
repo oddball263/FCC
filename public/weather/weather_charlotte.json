@@ -1,0 +1,42 @@
+{
+	"coord": {
+		"lon":-81,
+		"lat":35.11
+		},
+	"weather":[{
+		"id":804,
+		"main":"Clouds",
+		"description":"overcast clouds",
+		"icon":"https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F04n.png?1499366020983"
+		}],
+	"base":"stations",
+	"main":{
+		"temp":13.25,
+		"pressure":1019,
+		"humidity":87,
+		"temp_min":12,
+		"temp_max":14
+	},
+	"visibility":16093,
+	"wind":{
+		"speed":1.71,
+		"deg":215.507
+	},
+	"clouds":{
+		"all":90
+	},
+	"dt":1512095700,
+	"sys":{
+		"type":1,
+		"id":2406,
+		"message":0.1659,
+		"country":"US",
+		"sunrise":1512130453,
+		"sunset":1512166322},
+		"id":4584474,
+		"name":"Lake Wylie",
+		"cod":200
+	}
+
+
+coords:  -80.9956851 : 35.1061672 

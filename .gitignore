@@ -4,9 +4,8 @@ npm-debug.log
 
 # doc, notebooks...
 doc
-portfolio-01
-.ipynb_checkpoints
-.Rhistory
+ .ipynb_checkpoints
+ .Rhistory
 
 # Local development
 *.env

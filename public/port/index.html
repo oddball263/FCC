@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>MT Portfolio</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,800|Quicksand:400,500|Rajdhani:400,600|Zilla+Slab:400,600,700" rel="stylesheet">
+
+
+	<script>
+
+	$(document).ready(function(){
+
+		$("#lnkSolutions").click(function(){
+		  $("#lnkSolutions").hide(1000);
+			$("#mainPg").animate({'margin-top': '50px'}, 1000);
+		});
+
+		$( ".projDetail" ).dialog({
+			autoOpen: false,
+			width: 740,
+      show: {
+        effect: "blind",
+        duration: 500
+      },
+      hide: {
+        effect: "explode",
+        duration: 500
+      }
+    });
+
+		$(".sampleWeb").mouseenter(function(){
+			$(this).css("background-color","rgb(137, 250, 145)")
+		});
+		$(".sampleWeb").mouseleave(function(){
+			$(this).css("background-color","transparent")
+		});
+		$(".sampleInt").mouseenter(function(){
+			$(this).css("background-color","#da6581")
+		});
+		$(".sampleInt").mouseleave(function(){
+			$(this).css("background-color","transparent")
+		});
+		$(".samplePhoto").mouseenter(function(){
+			$(this).css("background-color","rgb(250, 208, 137)")
+		});
+		$(".samplePhoto").mouseleave(function(){
+			$(this).css("background-color","transparent")
+		});
+
+    $( "#openerEmed" ).on( "click", function() {
+      $( "#detailEmed" ).dialog( "open" )
+		});
+		$( "#openerDecotherm" ).on( "click", function() {
+      $( "#detailDecotherm" ).dialog( "open" )
+		});
+		$( "#openerInet" ).on( "click", function() {
+      $( "#detailInetteacher" ).dialog( "open" )
+		});
+		$( "#openerD3" ).on( "click", function() {
+      $( "#detailD3" ).dialog( "open" )
+		});
+		$( "#openerDash" ).on( "click", function() {
+      $( "#detailDash" ).dialog( "open" )
+		});
+		$( "#openerShiny" ).on( "click", function() {
+      $( "#detailShiny" ).dialog( "open" )
+		});
+
+	});
+
+	</script>
+
+	<style  type="text/css" >
+		.mont {font-family: 'Montserrat', sans-serif;}
+		.quik {font-family: 'Quicksand', sans-serif;}
+		.raj {font-family: 'Rajdhani', sans-serif;}
+		.zilla {font-family: 'Zilla Slab', serif;}
+
+		body {
+		    background-image: url("img1/img-7539-01-16x9.jpg");
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center top;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin: 0px;
+		}
+		.projDetail{
+		}
+		.sampleWeb{
+			text-align: center;
+			padding-left: 10px;
+		}
+		.menu {
+			background-color: #000000;
+			padding: 12px;
+			position: fixed;
+			top: 0px;
+			width: 100%;
+			z-index: 10000;
+		}
+		.menu1 {
+			color: #ffffff;
+			font-size: 24px;
+			font-weight: 400;
+		}
+
+		.menu2 {
+			padding-top: 6px;
+			font-family: 'Quicksand', sans-serif;
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 400;
+			text-decoration: none;
+		}
+
+		.menu2 a {
+			color: #9edbfc;
+			text-decoration: none;
+		}
+		.menu2 a:hover {
+			color: #21f45c;
+			text-decoration: none;
+		}
+
+		.head1 {
+			margin-top: 210px;
+			text-shadow: 2px 2px 0px #000000;
+			color: #ffffff;
+			font-size: 60px;
+			line-height: 1.25;
+		}
+		.head2 {
+			margin-top: 24px;
+			text-shadow: 4px 4px 0px #000000;
+			color: #ffffff;
+			font-size: 106px;
+			font-weight: 300;
+			line-height: 1.1;
+		}
+		.linkBtn{
+			width: 330px;
+			background: rgba(0,0,0, 0.35);
+			margin-top:40px;
+			margin-left:auto;
+			margin-right:auto;
+			padding:12px 3px;
+			border:1px solid rgb(255,255,255);
+			border-radius:25px;
+			vertical-align: middle;
+
+		}
+		.linkBtnTxt {
+			color:rgb(255,255,255);
+			font-size:20px;
+			font-weight: 300;
+			text-decoration: none;
+		}
+		.linkBtnTxt:hover {
+			color: #ff0082;
+		}
+
+		.mainPage {
+			width: 80%;
+			margin-top:250px;
+		}
+
+		.techRowTop {
+			padding-top: 44px;
+			padding-bottom: 54px;
+			background: rgba(0, 0, 0, 0.5);
+			text-align: center;
+		}
+		.techRowTop div {
+			text-align: center;
+		}
+		.techHeader{
+			margin-top: -5px;
+			font-family: 'Rajdhani', sans-serif;
+			font-size: 36px;
+			color: rgb(255,255,255);
+			text-align: center;
+		}
+
+		.aboutMeRow {
+			padding-top: 50px;
+			padding-bottom: 40px;
+			background: rgba(255, 255, 255, 0.90);
+		}
+		.mainTxt {
+			padding-bottom: 34px;
+			font-family: 'Quicksand', sans-serif;
+			font-size: 17px;
+			text-decoration: none;
+		}
+		.mainTxt h1 {
+			font-family: 'Rajdhani', sans-serif;
+			font-size: 26px;
+			font-weight: 600;
+		}
+
+
+		.techSubRow {
+			padding-top: 40px;
+			padding-bottom: 30px;
+			background: rgba(0, 0, 0, 0.5);
+		}
+		.techSubHead {
+			margin-top: -3px 2px;
+			font-family: 'Rajdhani', sans-serif;
+			font-size: 32px;
+			color: rgb(255,255,255);
+		}
+
+		.icon{
+			border-radius: 50%;
+			height: 60px;
+			width: 60px;
+			text-align: center;
+			margin: 0px auto;
+			font-size: 38px;
+			padding-top: 5px;
+		}
+		.iconWeb{
+			border: 2px solid #04d276;
+			color: #04d276;
+		}
+		.iconComp{
+			border: 2px solid #d91e4b;
+			color: #d91e4b;
+		}
+		.iconPhoto{
+			border: 2px solid #f2b80c;
+			color: #f2b80c;
+		}
+		.iconContact{
+			border: 2px solid #8d4bfa;
+			color: #8d4bfa;
+		}
+
+		.sampleRow {
+			padding-top: 20px;
+			padding-bottom: 10px;
+			background: rgba(255, 255, 255, 0.90);
+
+		}
+
+		.personalImg{
+			margin-top:15px;
+			border:1px solid #000000;
+			border-radius: 6px;
+			box-shadow: 4px 4px 8px #000000;
+		}
+		.sampleImg{
+			margin: 10px auto;
+			border:1px solid #000000;
+			box-shadow: 2px 2px 2px #000000;
+		}
+		.ui-dialog-titlebar{
+			background-color: rgb(29, 194, 125);
+			font-family: 'Rajdhani', sans-serif;
+			font-size: 24px;
+			font-weight:300;
+			color: rgb(255,255,255);
+		}
+		.detailImg{
+			width: 345px;
+			display: inline-block;
+			vertical-align: text-top;
+		}
+		.detailText{
+			width: 350px;
+			display: inline-block;
+			vertical-align: text-top;
+			font-size: 12px;
+			font-family: 'Quicksand', sans-serif;
+			text-decoration: none;
+		}
+
+
+	</style>
+
+</head>
+
+	<body >
+
+		<!-- start Menu Container - - - - - - - - - - - - - - // -->
+		<div id="divMenu" class="container-fluid " >
+
+			<!-- start  menu - - - - - - - - - - - - - - // -->
+			<div id="menu" class="row menu" >
+
+				<div class="col-md-4 text-center zilla menu1">
+					M Tato
+				</div>
+
+
+				<div class="col-md-8 text-center quik menu2" >
+					<a href="#AboutMe">About Me</a> &nbsp; &nbsp;
+					<a href="#web">Web Development</a> &nbsp; &nbsp;
+					<a href="#interactive">Interactive Apps</a> &nbsp; &nbsp;
+					<a href="#photography">Photography</a> &nbsp; &nbsp;
+					<a href="#contact">Contact</a> &nbsp; &nbsp;
+					<a href="https://www.facebook.com/michael.tato.18" border=""><img src="img1/FB-fLogo-Blue-broadcast-2.png" style="height:30px" /></a>
+				</div>
+
+
+			</div>
+			<!--end  menu row- - - - - - - - - - - - - - // -->
+		</div>
+		<!--end  menu container - - - - - - - - - - - - - - // -->
+
+
+		<!-- start main heads Container - - - - - - - - - - - - - - // -->
+		<div id="divPage" class="container-fluid " >
+
+
+			<!-- start  head - - - - - - - - - - - - - - // -->
+			<div  class="row " >
+				<div class="col-md-12 text-center raj head1" >
+					Think
+				</div>
+			</div>
+
+			<div  class="row " >
+				<div class="col-md-12 text-center mont head2" >
+					Out Of The Office
+				</div>
+			</div>
+
+			<div id="btnRow"  class="row " >
+				<div class="col-md-12 text-center ">
+					<div id="lnkSolutions" class="linkBtn text-center linkBtnTxt" >
+
+							<span class="glyphicon glyphicon-arrow-down"></span>
+							&nbsp;Technical Solutions&nbsp;
+							<span class="glyphicon glyphicon-arrow-down"></span>
+
+					</div>
+				</div>
+			</div>
+			<!-- end  head - - - - - - - - - - - - - - // -->
+		</div>
+
+
+		<!-- start  tech Row Top- - - - - - - - - - - - - - // -->
+		<div id="mainPg" class="container-fluid  mainPage">
+
+
+			<!-- main page 1- - - - - - - - - - - - - - // -->
+			<div id="row1" class="row techRowTop" >
+
+				<div  class="col-lg-4" >
+					<div class="icon iconWeb" >
+						<i class="glyphicon glyphicon-cloud" style="padding-top:4px;"></i>
+					</div>
+					<div class="techHeader">
+						<h1>Web Development</h1>
+					</div>
+				</div>
+
+				<div  class="col-lg-4" >
+					<div class="icon iconComp" >
+						<i class="glyphicon glyphicon-cog"></i>
+					</div>
+					<div class="techHeader">
+						<h1>Interactive Apps</h1>
+					</div>
+				</div>
+
+				<div  class="col-lg-4" >
+					<div class="icon iconPhoto" >
+						<i class="glyphicon glyphicon-camera"></i>
+					</div>
+					<div class="techHeader">
+						<h1>Photography</h1>
+					</div>
+				</div>
+
+			</div>
+
+
+			<!-- main about me- - - - - - - - - - - - - - // -->
+			<div id="AboutMe" class="row aboutMeRow" >
+				<div  class="col-md-1" ></div>
+
+				<div  class="col-md-7 mainTxt"  >
+					<h1>About Me...</h1>
+					<p>
+						I'm a professional web developer and graphic designer specializing in data-driven web sites, e-commerce and web application development using various technologies.
+						<ul>
+							<li>10+ years experience as a web developer working with clients developing internet/intranet, revenue-generating websites and applications.
+							</li>
+							<li>15+ years experience as a graphic designer using Photoshop, Illustrator and Quark on a daily basis to produce a variety of printed materials and web publications.</li>
+						</ul>
+					</p>
+
+					<h1>Technologies...</h1>
+					<p>
+						<ul>
+							<li>ASP, ASP.NET, C#, VB.Net</li>
+							<li>MS SQL Server, SQL</li>
+							<li>Node, Express, Mongo DB, Postgress SQL</li>
+							<li>HTML, JavaScript, CSS, jQuery, React, AngularJs, Node, Bootstrap</li>
+							<li>R, Shiny, D3, Plotly</li>
+						</ul>
+					</p>
+
+				</div>
+
+				<div  class="col-md-3 mainPg2"  >
+					<img src="http://www.active770.com/webdev/port/mtato-01.jpg" class="img-responsive personalImg"  />
+				</div>
+
+				<div  class="col-md-1" ></div>
+			</div>
+			<!-- end main about me - - - - - - - - - - - - - // -->
+
+
+			<!-- Web development - - - - - - - - - - - - - - // -->
+			<div id="web" class="row techSubRow"  >
+				<div  class="col-md-1 " ></div>
+				<div  class="col-md-11 techSubHead"   >
+					<div class="icon iconWeb" style="display:inline-block;">
+						<i class="glyphicon glyphicon-cloud" style="padding-top:4px;"></i>
+					</div>
+					<div class="" style="display:inline-block;">
+						Web Development
+					</div>
+				</div>
+			</div>
+
+
+			<div id="row1" class="row sampleRow">
+				<div class="container-fluid " style="width:80%">
+					<div class="row">
+						<div class="col-md-4 sampleWeb text-center" id="openerInet">
+							<img src="img1/inet-01.jpg" alt="www.inetTeacher.com" class="img-responsive sampleImg" />
+						</div>
+						<div  class="col-md-4 sampleWeb text-center"  id="openerDecotherm">
+							<img src="img1/deco1-01.jpg" alt="www.DecoTherm.net" class="img-responsive  sampleImg" />
+						</div>
+						<div class="col-md-4 sampleWeb text-center"  id="openerEmed">
+							<img src="img1/emed-01.jpg" alt="www.emedco.com" class="img-responsive sampleImg"  />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 mainTxt text-center" id="opener">
+							www.inetTeacher.com<br />
+							Website Building Application
+						</div>
+						<div  class="col-md-4 mainTxt text-center"  id="opener">
+							www.DecoTherm.net<br />
+							B2B Website and Back-End Systems
+						</div>
+						<div class="col-md-4 mainTxt text-center"  id="opener">
+							www.emedco.com<br />
+							B2B Website
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end Web Development - - - - - - - - - - - - - - // -->
+
+			<!-- components - - - - - - - - - - - - - - // -->
+			<div id="interactive" class="row techSubRow">
+				<div  class="col-md-1 " ></div>
+				<div  class="col-md-11 techSubHead"   >
+					<div class="icon iconComp" style="display:inline-block;">
+						<i class="glyphicon glyphicon-cog" style="padding-top:4px;"></i>
+					</div>
+					<div class="" style="display:inline-block;">
+						Interactive Web Apps
+					</div>
+				</div>
+			</div>
+
+			<div id="row1" class="row sampleRow">
+				<div class="container-fluid " style="width:80%">
+					<div class="row">
+						<div class="col-md-4 sampleInt text-center" id="openerD3">
+							<img src="img1/demo-d3.png" alt="D3.js Statistical Visualization" class="img-responsive sampleImg"  />
+						</div>
+						<div  class="col-md-4 sampleInt text-center"  id="openerDash">
+							<img src="img1/demo-dash.png" alt="Javascript Dashboard Apps" class="img-responsive  sampleImg" />
+						</div>
+						<div class="col-md-4 sampleInt text-center"  id="openerShiny">
+							<img src="img1/demo-shiny.png" alt="R Shiny Statistical Visualization" class="img-responsive sampleImg" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 mainTxt text-center" id="opener">
+							D3.js Statistical Visualization
+						</div>
+						<div  class="col-md-4 mainTxt text-center"  id="opener">
+							Javascript Dashboard Apps
+						</div>
+						<div class="col-md-4 mainTxt text-center"  id="opener">
+							R Shiny Statistical Visualization
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<em>(will link to examples when ready)</em>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end components - - - - - - - - - - - - - - // -->
+
+			<!-- main page 3- - - - - - - - - - - - - - // -->
+			<div id="photography" class="row techSubRow"   >
+				<div  class="col-md-1 " ></div>
+				<div  class="col-md-11 techSubHead"   >
+					<div class="icon iconPhoto" style="display:inline-block;">
+						<i class="glyphicon glyphicon-camera" ></i>
+					</div>
+					<div class="" style="display:inline-block;">
+						Photography
+					</div>
+				</div>
+			</div>
+
+			<div id="row1" class="row sampleRow">
+				<div class="container-fluid " style="width:80%">
+					<div class="row">
+						<div class="col-md-4 samplePhoto text-center" id="opener">
+							<img src="img1/2787_r2_s2x-Port.jpg" class="img-responsive sampleImg"  />
+						</div>
+						<div  class="col-md-4 samplePhoto text-center"  id="opener">
+							<img src="img1/2853_1-Port.jpg" class="img-responsive  sampleImg" />
+						</div>
+						<div class="col-md-4 samplePhoto text-center"  id="opener">
+							<img src="img1/camp_4x-Port.jpg" class="img-responsive sampleImg" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<em>(will link to online photography account when ready)</em>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+			<!-- end photography - - - - - - - - - - - - - - // -->
+
+
+			<!-- main page contact- - - - - - - - - - - - - - // -->
+			<div id="contact" class="row techSubRow"   >
+				<div  class="col-md-1" ></div>
+				<div  class="col-md-11 techSubHead"   >
+					<div class="icon iconContact" style="display:inline-block;">
+						<i class="glyphicon glyphicon-envelope" ></i>
+					</div>
+					<div style="display:inline-block;">
+						Contact
+					</div>
+				</div>
+			</div>
+
+			<div id="row1" class="row sampleRow" >
+				<div  class="col-md-2" ><form></div>
+
+
+
+				<div  class="col-md-3" style="">
+					<em>(form currently inactive)</em>
+
+						<div class="form-group">
+							<label for="Contact Name">Name</label>
+							<input type="text" class="form-control" id="name" placeholder="Name">
+						</div>
+						<div class="form-group">
+							<label for="email">Email:</label>
+							<input type="email" class="form-control" id="email" placeholder="Email">
+						</div>
+						<button class="btn btn-info">Submit</button>
+				</div>
+
+				<div  class="col-md-5" style="">
+					<div class="form-group">
+						<label for="Comments">Comments</label>
+						<textarea rows="6" class="form-control" id="comments" placeholder="Comments" ></textarea>
+					</div>
+				</div>
+
+				<div  class="col-md-2" ></form></div>
+			</div>
+
+
+			<!-- footer - - - - - - - - - - - - - - // -->
+			<div id="row1" class="row techRow"   >
+				<div  class="col-md-2 " >
+					<h1>&nbsp;</h1>
+				</div>
+				<div  class="col-md-10 mainPg3" >
+
+				</div>
+			</div>
+
+
+		</div>
+		<!-- end  page container-fluid - - - - - - - - - - - - - - // -->
+
+
+		<!-- project details below  - - - - - - - - - - - - - - // -->
+
+		<div id="detailEmed" class="projDetail" title="Website Development: emedco.com - B2B E-Commerce Website">
+		  <div >
+				<img src="img1/detail-emedco.jpg" alt="detail information on emedco.com b2b e-commerce site." class="detailImg" />
+
+				<div class="detailText">
+					Designed, built and administered corporate B2B e-commerce website containing over 80,000 items, generating over $5 million in annual sales.
+					<br /><br />
+					Project Scope:
+					<ul>
+						<li>Performed all web development, from concept through full application life cycle: identified system requirements, SQL database development, design, coding, testing, implementation and maintenance.</li>
+						<li>Developed web-based sales reporting and analysis applications to support marketing objectives on the website as well as in the company's printed catalogs.</li>
+						<li>Set overall e-commerce objectives and vision with ultimate responsibility to contribute strongly to company profitability.</li>
+						<li>Time frame for this project: 1997 - 2002, current site is not my code.</li>
+						<li>
+							<a href="https://web.archive.org/web/20020610190911/http://www.emedco.com:80/emed2/dept.asp?dept_id=2975">Internet Archive views</a></li>
+					</ul>
+					&nbsp;&nbsp;Languages:
+					<ul>
+						<li>ASP, SQL, ASP.Net, C#, HTML, JavaScript, CSS</li>
+					</ul>
+					&nbsp;&nbsp;Technology:
+					<ul>
+						<li>IIS, SQL Server 7/2000, Visual InterDev, Visual Studio.Net,  Microsoft Site Server</li>
+					</ul>
+						&nbsp;&nbsp;Design Software:
+					<ul>
+						<li>Adobe Photoshop, Adobe Illustrator, QuarkXPress</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="detailDecotherm"  class="projDetail" title="Website Development: DecoTherm.net - B2B E-Commerce Website & Design Studio">
+		  <div >
+				<img src="img1/detail-decotherm.jpg" alt="detail information on DecoTherm.net." class="detailImg" />
+
+				<div class="detailText">
+					DecoTherm was a revolutionary glass decoration process developed by IIMAK, a multi-national manufacturer headquartered in Amherst, NY.
+					<br /><br />
+					Project Scope:
+					<ul>
+						<li>Create marketing website to present visitors with information on the DecoTherm Glass design product.</li>
+						<li>Provide ordering capability to Licensees for stock and custom glass designs.</li>
+						<li>Develop Design Studio workflow, order fulfillment, and reporting using SQL 2000 database and VB.NET.</li>
+						<li>Develop over 250 Stock DecoTherm Design images using Adobe Illustrator and Photoshop.</li>
+						<li>Develop an in-house Design Studio that will output stock and custom glass Designs.</li>
+						<li>Time frame for this project: 2003 - 2010.</li>
+						<li>Business was sold in 2010 so is no longer online in this format.</li>
+					</ul>
+					&nbsp;&nbsp;Languages:
+					<ul>
+						<li>SQL, VB.Net, HTML, JavaScript, CSS</li>
+					</ul>
+					&nbsp;&nbsp;Technology:
+					<ul>
+						<li>Microsoft IIS, Microsoft SQL Server 2000 - 2008, Visual Studio.Net</li>
+					</ul>
+						&nbsp;&nbsp;Design Software:
+					<ul>
+						<li>Adobe Photoshop, Adobe Illustrator</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="detailInetteacher" class="projDetail" title="Website Development: inetTeacher.com ">
+			<div >
+				<img src="img1/detail-inet.jpg" alt="detail information on inetTeacher.com web site." class="detailImg" />
+
+				<div class="detailText">
+					inetTeacher.com is an online application I've built and run for my own business, Active 770 Inc. The site enables schools and educators to build and maintain websites without coding or software.
+
+					This C#.NET application takes advantage of editing capabilities in DataGrids and DataLists to enable educators to add pages, maintain information and add graphics and upload files directly on website pages.
+					<br /><br />
+					Project Details:
+					<ul>
+						<li>Used by teachers in the US and Canada.</li>
+						<li>Users can easily build pages, add images, text, and links without any HTML knowledge.</li>
+						<li>Full featured online Grading application for 24/7 access to grades.</li>
+						<li>Complete customer information / registration capabilities.</li>
+						<li>Yearly Credit Card / Paypal billing.</li>
+						<li>Time frame for this project: 2004 - present.</li>
+						<li><a href="www.inetteacher.com">inetTeacher.com</a></li>
+					</ul>
+					&nbsp;&nbsp;Languages:
+					<ul>
+						<li>SQL, C#.Net, HTML, JavaScript, CSS</li>
+					</ul>
+					&nbsp;&nbsp;Technology:
+					<ul>
+						<li>Microsoft IIS, Microsoft SQL Server 2000 - 2010, Visual Studio.Net</li>
+					</ul>
+					&nbsp;&nbsp;Design Software:
+					<ul>
+						<li>Adobe Photoshop, Adobe Illustrator</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="detailD3" class="projDetail" title="Interactive Web Apps: D3.js Statistical Visualization">
+			<div >
+				<img src="img1/demo-d3.png" alt="D3.js Statistical Visualization" class="detailImg" />
+				<div class="detailText">
+					D3.js Statistical Visualization...
+				</div>
+			</div>
+		</div>
+
+		<div id="detailDash" class="projDetail" title="Interactive Web Apps: Javascript Dashboard Apps ">
+			<div >
+				<img src="img1/demo-dash.png" alt="Javascript Dashboard Apps" class="detailImg" />
+				<div class="detailText">
+					Javascript Dashboard Apps...
+				</div>
+			</div>
+		</div>
+
+		<div id="detailShiny" class="projDetail" title="Interactive Web Apps: R Shiny Statistical Visualization ">
+			<div >
+				<img src="img1/demo-shiny.png" alt="R Shiny Statistical Visualization" class="detailImg" />
+				<div class="detailText">
+					R Shiny Statistical Visualization...
+				</div>
+			</div>
+		</div>
+
+
+<div style="height:400px">
+
+</div>
+
+	</body>
+</html>

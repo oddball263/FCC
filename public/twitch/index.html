@@ -83,8 +83,8 @@
 
 					//if( data) {
 						if(data.stream ){
-						$("#streamDiv" + i).html("Streaming: " + data.stream.stream_type);
-						$("#gameDiv" + i).html("Game: " + data.stream.game);
+						$("#streamDiv" + i).html("<span style='color:rgb(0, 255, 3)'>Streaming:</span> " + data.stream.stream_type);
+						$("#gameDiv" + i).html("<span style='color:rgb(0, 255, 3)'>Game:</span> " + data.stream.game);
 						$("#streamDiv" + i).css({"border-top":"1px solid #ffffff", "color": "#ffffff"});
 						$("#gameDiv" + i).css({"border-top":"1px solid #ffffff", "color": "#ffffff"});
 
@@ -191,8 +191,10 @@
 			word-spacing: 5px;
 			text-align: left;
 			text-shadow: 5px 5px 8px #000000;
-			border-bottom: 2px solid #fbe200;
+			border-bottom: 2px solid #f9ef00;
 			margin: 40px; padding:10px;
+			width:90%;
+
 		}
 		a {
 			color:#d092fc;
@@ -207,9 +209,9 @@
 			width:90%;
 		}
 		.cell{
-			padding:20px;
+			padding: 10px;
 			margin: 5px;
-			height: 172px;
+			height: 160px;
 			border: 3px inset #444444;
 			border-radius: 8px;
 			background-color: #000000;
@@ -226,12 +228,12 @@
 			font-family: 'Expletus Sans', cursive;
 			font-size: 20px;
 			font-weight: 700;
-			margin-left: 70px;
+			margin-left: 80px;
 		}
 		.logoImg{
-			width: 60px;
+			width: 70px;
 			border-radius: 8px;
-			border: 2px solid #ffffff
+			border: 1px solid #f9ef00
 		}
 		.streamDiv{
 			font-family: 'Expletus Sans', cursive;
@@ -241,6 +243,7 @@
 			padding-bottom:8px;
 			text-align: center;
 			margin-top: 8px;
+
 		}
 		.gameDiv{
 			padding-top:8px;
